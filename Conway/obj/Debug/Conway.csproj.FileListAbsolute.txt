@@ -1,0 +1,102 @@
+C:\Users\My_nigga\Desktop\Wolfram Code\Conway\Conway\bin\Debug\Conway.exe.config
+C:\Users\My_nigga\Desktop\Wolfram Code\Conway\Conway\bin\Debug\Conway.exe
+C:\Users\My_nigga\Desktop\Wolfram Code\Conway\Conway\bin\Debug\Conway.pdb
+C:\Users\My_nigga\Desktop\Wolfram Code\Conway\Conway\obj\Debug\Conway.csprojResolveAssemblyReference.cache
+C:\Users\My_nigga\Desktop\Wolfram Code\Conway\Conway\obj\Debug\Conway.Form1.resources
+C:\Users\My_nigga\Desktop\Wolfram Code\Conway\Conway\obj\Debug\Conway.Properties.Resources.resources
+C:\Users\My_nigga\Desktop\Wolfram Code\Conway\Conway\obj\Debug\Conway.csproj.GenerateResource.Cache
+C:\Users\My_nigga\Desktop\Wolfram Code\Conway\Conway\obj\Debug\Conway.exe
+C:\Users\My_nigga\Desktop\Wolfram Code\Conway\Conway\obj\Debug\Conway.pdb
+E:\Conway\Conway\bin\Debug\Conway.exe.config
+E:\Conway\Conway\obj\Debug\Conway.exe
+E:\Conway\Conway\obj\Debug\Conway.pdb
+E:\Conway\Conway\bin\Debug\Conway.exe
+E:\Conway\Conway\bin\Debug\Conway.pdb
+E:\Conway\Conway\obj\Debug\Conway.csprojResolveAssemblyReference.cache
+E:\Conway\Conway\obj\Debug\Conway.Form1.resources
+E:\Conway\Conway\obj\Debug\Conway.Properties.Resources.resources
+E:\Conway\Conway\obj\Debug\Conway.csproj.GenerateResource.Cache
+E:\Conway\Conway\obj\Debug\Conway.Function.resources
+G:\Conway\Conway\bin\Debug\Conway.exe.config
+G:\Conway\Conway\obj\Debug\Conway.exe
+G:\Conway\Conway\obj\Debug\Conway.pdb
+G:\Conway\Conway\bin\Debug\Conway.exe
+G:\Conway\Conway\bin\Debug\Conway.pdb
+G:\Conway\Conway\obj\Debug\Conway.csprojResolveAssemblyReference.cache
+G:\Conway\Conway\obj\Debug\Conway.Form1.resources
+G:\Conway\Conway\obj\Debug\Conway.Function.resources
+G:\Conway\Conway\obj\Debug\Conway.Properties.Resources.resources
+G:\Conway\Conway\obj\Debug\Conway.csproj.GenerateResource.Cache
+C:\Users\My_nigga\Desktop\Conway2901\Conway\bin\Debug\Conway.exe.config
+C:\Users\My_nigga\Desktop\Conway2901\Conway\obj\Debug\Conway.exe
+C:\Users\My_nigga\Desktop\Conway2901\Conway\obj\Debug\Conway.pdb
+C:\Users\My_nigga\Desktop\Conway2901\Conway\bin\Debug\Conway.exe
+C:\Users\My_nigga\Desktop\Conway2901\Conway\bin\Debug\Conway.pdb
+C:\Users\My_nigga\Desktop\Conway2901\Conway\obj\Debug\Conway.csprojResolveAssemblyReference.cache
+C:\Users\My_nigga\Desktop\Conway2901\Conway\obj\Debug\Conway.Form1.resources
+C:\Users\My_nigga\Desktop\Conway2901\Conway\obj\Debug\Conway.Function.resources
+C:\Users\My_nigga\Desktop\Conway2901\Conway\obj\Debug\Conway.Properties.Resources.resources
+C:\Users\My_nigga\Desktop\Conway2901\Conway\obj\Debug\Conway.csproj.GenerateResource.Cache
+C:\Users\konst\Desktop\Conway2901\Conway\bin\Debug\Conway.exe.config
+C:\Users\konst\Desktop\Conway2901\Conway\bin\Debug\Conway.exe
+C:\Users\konst\Desktop\Conway2901\Conway\bin\Debug\Conway.pdb
+C:\Users\konst\Desktop\Conway2901\Conway\obj\Debug\Conway.csprojAssemblyReference.cache
+C:\Users\konst\Desktop\Conway2901\Conway\obj\Debug\Conway.Form1.resources
+C:\Users\konst\Desktop\Conway2901\Conway\obj\Debug\Conway.Function.resources
+C:\Users\konst\Desktop\Conway2901\Conway\obj\Debug\Conway.Properties.Resources.resources
+C:\Users\konst\Desktop\Conway2901\Conway\obj\Debug\Conway.csproj.GenerateResource.cache
+C:\Users\konst\Desktop\Conway2901\Conway\obj\Debug\Conway.csproj.CoreCompileInputs.cache
+C:\Users\konst\Desktop\Conway2901\Conway\obj\Debug\Conway.exe
+C:\Users\konst\Desktop\Conway2901\Conway\obj\Debug\Conway.pdb
+C:\Users\Helen\Desktop\Conway2901\Conway\bin\Debug\Conway.exe.config
+C:\Users\Helen\Desktop\Conway2901\Conway\obj\Debug\Conway.exe
+C:\Users\Helen\Desktop\Conway2901\Conway\obj\Debug\Conway.pdb
+C:\Users\Helen\Desktop\Conway2901\Conway\bin\Debug\Conway.exe
+C:\Users\Helen\Desktop\Conway2901\Conway\bin\Debug\Conway.pdb
+C:\Users\Helen\Desktop\Conway2901\Conway\obj\Debug\Conway.csprojResolveAssemblyReference.cache
+C:\Users\Helen\Desktop\Conway2901\Conway\obj\Debug\Conway.Form1.resources
+C:\Users\Helen\Desktop\Conway2901\Conway\obj\Debug\Conway.Function.resources
+C:\Users\Helen\Desktop\Conway2901\Conway\obj\Debug\Conway.Properties.Resources.resources
+C:\Users\Helen\Desktop\Conway2901\Conway\obj\Debug\Conway.csproj.GenerateResource.Cache
+E:\Conway2901\Conway\bin\Debug\Conway.exe.config
+E:\Conway2901\Conway\obj\Debug\Conway.exe
+E:\Conway2901\Conway\obj\Debug\Conway.pdb
+E:\Conway2901\Conway\bin\Debug\Conway.exe
+E:\Conway2901\Conway\bin\Debug\Conway.pdb
+E:\Conway2901\Conway\obj\Debug\Conway.csprojResolveAssemblyReference.cache
+E:\Conway2901\Conway\obj\Debug\Conway.Form1.resources
+E:\Conway2901\Conway\obj\Debug\Conway.Function.resources
+E:\Conway2901\Conway\obj\Debug\Conway.Properties.Resources.resources
+E:\Conway2901\Conway\obj\Debug\Conway.csproj.GenerateResource.Cache
+G:\Conway2901\Conway\bin\Debug\Conway.exe.config
+G:\Conway2901\Conway\obj\Debug\Conway.exe
+G:\Conway2901\Conway\obj\Debug\Conway.pdb
+G:\Conway2901\Conway\bin\Debug\Conway.exe
+G:\Conway2901\Conway\bin\Debug\Conway.pdb
+G:\Conway2901\Conway\obj\Debug\Conway.csprojResolveAssemblyReference.cache
+G:\Conway2901\Conway\obj\Debug\Conway.Form1.resources
+G:\Conway2901\Conway\obj\Debug\Conway.Function.resources
+G:\Conway2901\Conway\obj\Debug\Conway.Properties.Resources.resources
+G:\Conway2901\Conway\obj\Debug\Conway.csproj.GenerateResource.Cache
+E:\19072019\storage2019\Conway2901\Conway\bin\Debug\Conway.exe.config
+E:\19072019\storage2019\Conway2901\Conway\bin\Debug\Conway.exe
+E:\19072019\storage2019\Conway2901\Conway\bin\Debug\Conway.pdb
+E:\19072019\storage2019\Conway2901\Conway\obj\Debug\Conway.csprojResolveAssemblyReference.cache
+E:\19072019\storage2019\Conway2901\Conway\obj\Debug\Conway.Form1.resources
+E:\19072019\storage2019\Conway2901\Conway\obj\Debug\Conway.Function.resources
+E:\19072019\storage2019\Conway2901\Conway\obj\Debug\Conway.Properties.Resources.resources
+E:\19072019\storage2019\Conway2901\Conway\obj\Debug\Conway.csproj.GenerateResource.Cache
+E:\19072019\storage2019\Conway2901\Conway\obj\Debug\Conway.exe
+E:\19072019\storage2019\Conway2901\Conway\obj\Debug\Conway.pdb
+E:\19072019\storage2019\Conway2901\Conway\obj\Debug\Conway.ControlSettings.resources
+C:\Users\franj\Desktop\Conway2901\Conway\bin\Debug\Conway.exe.config
+C:\Users\franj\Desktop\Conway2901\Conway\obj\Debug\Conway.exe
+C:\Users\franj\Desktop\Conway2901\Conway\obj\Debug\Conway.pdb
+C:\Users\franj\Desktop\Conway2901\Conway\bin\Debug\Conway.exe
+C:\Users\franj\Desktop\Conway2901\Conway\bin\Debug\Conway.pdb
+C:\Users\franj\Desktop\Conway2901\Conway\obj\Debug\Conway.csprojResolveAssemblyReference.cache
+C:\Users\franj\Desktop\Conway2901\Conway\obj\Debug\Conway.ControlSettings.resources
+C:\Users\franj\Desktop\Conway2901\Conway\obj\Debug\Conway.Form1.resources
+C:\Users\franj\Desktop\Conway2901\Conway\obj\Debug\Conway.Function.resources
+C:\Users\franj\Desktop\Conway2901\Conway\obj\Debug\Conway.Properties.Resources.resources
+C:\Users\franj\Desktop\Conway2901\Conway\obj\Debug\Conway.csproj.GenerateResource.Cache
