@@ -12,7 +12,11 @@ namespace Conway
 {
     public partial class Function : Form
     {
-      CheckBox[] cb = new CheckBox[18];
+        CalculationFunction func = new CalculationFunction();
+        public delegate decimal AllCellsFunc(decimal cell);       
+        public AllCellsFunc allCellf;
+        
+
         TextBox[] tb = new TextBox[9];
         List<int> Parameters=new List<int>();
         decimal[] innerParameters = new decimal[9];
@@ -34,6 +38,10 @@ namespace Conway
                 y = (i == 7 || i == 8 || i == 3) ? 30 : (i == 0 || i == 1 || i == 2) ? 0 : 60;
                 panel2.Controls.Add(tb[i] = new TextBox() { Location = new Point(x, y), Width=28 });
             }
+            FunctionForCellsCB.Text = "decimal d = 17m; if (x >= 5 / d && x <= 7 / d){ return 1; } else{return 0;} ";
+            /*
+            
+             */
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -49,7 +57,8 @@ namespace Conway
             }
             fieldSize = Convert.ToInt32(fieldsizetb.Text);
             scale = Convert.ToInt32(scaletb.Text);
-            mainFunction = tentCB.Checked ? "Tent" : "Logistic";
+            allCellf = new AllCellsFunc(func.FunctionForAllParsed(FunctionForCellsCB.Text));
+            //mainFunction = tentCB.Checked ? "Tent" : "Logistic";
          }
 
         private void Clear_Click(object sender, EventArgs e)

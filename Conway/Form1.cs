@@ -113,23 +113,23 @@ namespace Conway
         }
         public decimal Func(decimal x)
         {
-            decimal a = 0; decimal incode = 0; string mainFunction = f.MainFunction();
+            decimal a = 0; decimal incode = 0; var mainFunction = f.allCellf;
             List<int> Param = f.GetFunc();
             decimal[] inf = f.innerFunc();
             
             //for (int i = 0; i < inf.Length; i++)
             //    incode += inf[i];
             decimal limitParameter = incode + 1;
-            if (mainFunction == "Tent")
-            {
-                return PiecewiseNew(x);               
-            }
-            else
-            {
+            //if (mainFunction == "Tent")
+            //{
+            //    return PiecewiseNew(x);               
+            //}
+            //else
+            //{
                 return Logistic(x);
-            }
+            //}
 
-
+          // return mainFunction(x);
             //    Sum of Tent maps, that represents rules of Game
         }
         public decimal PiecewiseNew(decimal x)
@@ -142,13 +142,7 @@ namespace Conway
 
         public decimal Logistic(decimal x)
         {
-            decimal d = 17m;
-            //dknw
-            //if (x >= 5 / d && x <= 8 / d)
-            //{
-            //    return 1 - (Convert.ToDecimal(Math.Pow(17, 2)) / 4) * Convert.ToDecimal(Math.Pow(Convert.ToDouble(x - 6 / d), 2));//17 * x - 4;
-            //}
-
+            decimal d = 17m;            
 
             if (x >= 4 / d && x < 5 / d)
             {
@@ -165,22 +159,7 @@ namespace Conway
             else
             {
                 return 0;
-            }
-
-
-
-
-            //else
-            //if (x >= 5/d && x <= 7/d)
-            //{
-            //    return 1;
-            //}
-            //else if (x > 7 / d && x <= 8 / d)
-            //{
-            //    return -17 * x + 8;
-            //}
-           
-           
+            }           
         }
        
         public decimal[,,] SetInitial()
@@ -191,47 +170,23 @@ namespace Conway
             decimal[,] b = new decimal[K, K];
             Random rand = new Random();
             int x, x1, x2, y, y1, y2;
-            for (int i = 0; i < K * 10; i++)
-            {
-                x1 = rand.Next(K);
-                x2 = rand.Next(K);
-                x = (x1 + x2) / 2;
-                y1 = rand.Next(K);
-                y2 = rand.Next(K);
-                y = (y1 + y2) / 2;
-                SetInit[x, y, 0] = 1.0m;//Convert.ToDecimal(rand.Next(100)) / 100;
+            //for (int i = 0; i < K * 10; i++)
+            //{
+            //    x1 = rand.Next(K);
+            //    x2 = rand.Next(K);
+            //    x = (x1 + x2) / 2;
+            //    y1 = rand.Next(K);
+            //    y2 = rand.Next(K);
+            //    y = (y1 + y2) / 2;
+            //    SetInit[x, y, 0] = 1.0m;//Convert.ToDecimal(rand.Next(100)) / 100;
 
-            }
+            //}
             // планер в игре Жизнь
             SetInit[0, 1, 0] = 1;
             SetInit[1, 2, 0] = 1;
             SetInit[2, 0, 0] = 1;
             SetInit[2, 1, 0] = 1;
             SetInit[2, 2, 0] = 1;
-
-
-            //decimal da = 3;
-            //SetInit[0, 0, 0] = 2/da;
-            //SetInit[1, 2, 0] = 1;
-            //SetInit[2, 0, 0] = 0.9m;
-            //SetInit[2, 1, 0] = 0.54m;
-            //SetInit[2, 2, 0] = 0.63m;
-
-            //SetInit[1, 0, 0] = 0.5m;//0.8m;
-            //SetInit[3, 2, 0] = 0.77m;
-            //SetInit[9, 0, 0] = 0.36m;
-            //SetInit[2, 7, 0] = 1;
-            //SetInit[4, 2, 0] = 0.2m;
-
-            //decimal a = 0.8m;
-            //SetInit[1, 1, 0] = a;
-            //SetInit[1, 2, 0] = 1;
-            //SetInit[2, 0, 0] = 1;
-            //SetInit[2, 1, 0] = 1;
-            //SetInit[2, 2, 0] = 1;
-            //welcome
-
-
 
             for (int i = 0; i < K; i++)
                 for (int j = 0; j < K; j++)
@@ -243,46 +198,7 @@ namespace Conway
 
             return SetInit;
         }
-        //public void CAwork(double[,,] CA)
-        //{
-        //    double[,] h = new double[K, K];
-        //    double[,] T = new double[K, K];
-        //    for (int p = 0; p < n1 - 1; p++)
-        //    {
-
-        //        double[,] b = new double[K, K];
-        //        for (int i = 0; i < K; i++)
-        //            for (int j = 0; j < K; j++)
-        //            {
-        //                b[i, j] = CA[i, j, p];
-        //            }
-        //        h = Life(b);
-
-        //        Print(h);
-        //        for (int i = 0; i < K; i++)
-        //            for (int j = 0; j < K; j++)
-        //            {
-        //                CA[i, j, p + 1] = h[i, j];
-
-        //            }
-        //        T = Temporary(h);
-        //    }
-
-        //    NewInitial = T;
-        //}
-        //double[,] Temporary(double[,] c)
-        //{
-        //    double[,] temp;
-
-        //    temp = new double[K, K];
-        //    for (int i = 0; i < K; i++)
-        //        for (int j = 0; j < K; j++)
-        //        {
-        //            temp[i, j] = (c[i, j]);
-        //        }
-        //    return temp;
-
-        //}
+       
 
         private void Print(decimal[,] A)
         {
@@ -321,11 +237,7 @@ namespace Conway
             K = f.fieldSize;
             decimal[,] h = new decimal[K, K];
             decimal[,] b = new decimal[K, K];
-            // decimal[,] bc = new decimal[K, K];
-            //decimal div = 4.0m;
-            //decimal gamma = 0.66m;
-            //decimal a1 = isControl ? 0.556m : 1; decimal a2 = isControl ? 0.333m : 0; decimal a3 = isControl ? 0.111m: 0;
-            //decimal b1 = isControl ? 2 / div : 1; decimal b2 = isControl ? 2 / div : 0;
+            
             for (int i = 0; i < K; i++)
                 for (int j = 0; j < K; j++)
                 {
@@ -335,32 +247,7 @@ namespace Conway
             {
                 b = PredicativeControl(b);
             }
-            
-            //for (int i = 0; i < K; i++)
-            //for (int j = 0; j < K; j++)
-            //{
-            //   if (N1 > 3)
-            //   {                  
-            //      // bc[i, j] = b1 * Cell[N1-1][i, j] + b2 * Cell[N1 - 3][i, j];
-            //   }
-            //   else
-            //   {
-            //       b[i, j] = Cell[N1][i, j];
-            //   }
-            //}
-            //if (isControl)
-            //{
-            //    var b_temp = Life(b);
-            //    var bc_temp = Life(bc);
-            //    for (int i = 0; i < K; i++)
-            //        for (int j = 0; j < K; j++)
-            //        {
-            //            h[i,j] = (1 - gamma) * b_temp[i, j] + gamma * bc_temp[i, j];
-            //        }
-            //}
-            //else
-            //{
-           
+
             h = Life(b);
                         
             Print(h);
@@ -372,8 +259,8 @@ namespace Conway
         {
             //let's cycle equals 2 T=2
             int CAsize = f.fieldSize;
-            int Tcycle = 1; decimal div = 3.0m; decimal Epsilon = 0.000000000001m;
-            decimal Tetta = 8.0m;//1 / div * (Convert.ToDecimal(Math.Pow(2, Convert.ToDouble(Tcycle + 1))) - 1) + Epsilon; //4.0m;
+            int Tcycle = 1; 
+            decimal Tetta = 8.0m;
             decimal a1 = Tetta / (1 + Tetta); decimal a2 = 1 / (1 + Tetta);
             decimal[,] Xn_predicative = new decimal[CAsize,CAsize];
             decimal[,] Xn_predicativeTemporary = Xn;
@@ -438,7 +325,6 @@ namespace Conway
         private void Control_btn_Click(object sender, EventArgs e)
         {
             isControl = isControl ? false : true;
-            //cs.Show();
         }
     }
 }

@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.Clear = new System.Windows.Forms.Button();
             this.ok = new System.Windows.Forms.Button();
@@ -42,6 +41,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.scaletb = new System.Windows.Forms.TextBox();
+            this.FunctionForCellsCB = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -53,13 +54,6 @@
             this.button1.Text = "Set Function";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Location = new System.Drawing.Point(9, 35);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(365, 73);
-            this.panel1.TabIndex = 1;
             // 
             // textBox1
             // 
@@ -169,11 +163,31 @@
             this.scaletb.Size = new System.Drawing.Size(42, 20);
             this.scaletb.TabIndex = 11;
             // 
+            // FunctionForCellsCB
+            // 
+            this.FunctionForCellsCB.FormattingEnabled = true;
+            this.FunctionForCellsCB.Location = new System.Drawing.Point(108, 39);
+            this.FunctionForCellsCB.Name = "FunctionForCellsCB";
+            this.FunctionForCellsCB.Size = new System.Drawing.Size(121, 21);
+            this.FunctionForCellsCB.TabIndex = 13;
+            this.FunctionForCellsCB.Text = "4 * x * (1 - x)";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(15, 42);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(87, 13);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "Choose function:";
+            // 
             // Function
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(467, 282);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.FunctionForCellsCB);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.scaletb);
             this.Controls.Add(this.label3);
@@ -186,7 +200,6 @@
             this.Controls.Add(this.ok);
             this.Controls.Add(this.Clear);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
             this.Name = "Function";
             this.Text = "Function";
@@ -199,7 +212,6 @@
         #endregion
 
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button Clear;
         private System.Windows.Forms.Button ok;
@@ -212,5 +224,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox scaletb;
+        private System.Windows.Forms.ComboBox FunctionForCellsCB;
+        private System.Windows.Forms.Label label5;
     }
 }

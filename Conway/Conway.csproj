@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalculationFunction.cs" />
     <Compile Include="ControlSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,6 +65,7 @@
     <Compile Include="Function.Designer.cs">
       <DependentUpon>Function.cs</DependentUpon>
     </Compile>
+    <Compile Include="FunctionReader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ControlSettings.resx">
