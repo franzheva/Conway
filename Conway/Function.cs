@@ -38,36 +38,41 @@ namespace Conway
                 y = (i == 7 || i == 8 || i == 3) ? 30 : (i == 0 || i == 1 || i == 2) ? 0 : 60;
                 panel2.Controls.Add(tb[i] = new TextBox() { Location = new Point(x, y), Width=28 });
             }
+            ok.Enabled = false;
             FunctionForCellsCB.Text = "decimal d = 17m; if (x >= 5 / d && x <= 7 / d){ return 1; } else{return 0;} ";
             /*
             
              */
         }
 
+        //Set function button
         private void button1_Click(object sender, EventArgs e)
         {
-           
-            for (int p=0;p<9;p++)
+            if (fieldsizetb.Text != "" && scaletb.Text != "")
             {
-                if (tb[p].Text != "")
-                    innerParameters[p] = Convert.ToDecimal(tb[p].Text);
-                else
-                    innerParameters[p] = 0;
-                textBox1.Text += innerParameters[p].ToString() + " ";
+                for (int p = 0; p < 9; p++)
+                {
+                    if (tb[p].Text != "")
+                        innerParameters[p] = Convert.ToDecimal(tb[p].Text);
+                    else
+                        innerParameters[p] = 0;
+
+                }
+                fieldSize = Convert.ToInt32(fieldsizetb.Text);
+                scale = Convert.ToInt32(scaletb.Text);
+                allCellf = new AllCellsFunc(func.FunctionForAllParsed(FunctionForCellsCB.Text));
+                ok.Enabled = true;
             }
-            fieldSize = Convert.ToInt32(fieldsizetb.Text);
-            scale = Convert.ToInt32(scaletb.Text);
-            allCellf = new AllCellsFunc(func.FunctionForAllParsed(FunctionForCellsCB.Text));
+            else
+            {
+                fieldSizeEmpty.Text = fieldsizetb.Text != "" ? "" : "*Field size is required";
+                ScaleEmpty.Text = scaletb.Text != "" ? "" : "*Scale is required";
+            }
             //mainFunction = tentCB.Checked ? "Tent" : "Logistic";
          }
 
         private void Clear_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 18; i++)
-            {
-                textBox1.Text = "";
-            }
-
         }
         public List<int> GetFunc()
         {            
@@ -82,7 +87,7 @@ namespace Conway
             return mainFunction;
         }
         private void ok_Click(object sender, EventArgs e)
-        {
+        { 
             this.Hide();
         }
 

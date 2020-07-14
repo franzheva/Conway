@@ -21,6 +21,7 @@ namespace Conway
         public int K = 0; // field size
         int n1 = 53;
         int N1 = 0;
+        int iteration = 0;
         // int[,] A = new int[50, 50];
         decimal[,] NewInitial;
         int count = 0;
@@ -233,7 +234,7 @@ namespace Conway
         }      
 
         private void timer1_Tick(object sender, EventArgs e)
-        {
+        {           
             K = f.fieldSize;
             decimal[,] h = new decimal[K, K];
             decimal[,] b = new decimal[K, K];
@@ -254,6 +255,8 @@ namespace Conway
 
             Cell.Add(h);               
             N1 += 1;
+            iteration += 1;
+            IterationNumber.Text = iteration.ToString();
         }
         public decimal[,] PredicativeControl(decimal[,] Xn)
         {

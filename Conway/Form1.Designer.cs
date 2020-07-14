@@ -34,6 +34,8 @@
             this.startTimerButton = new System.Windows.Forms.Button();
             this.stopTimer = new System.Windows.Forms.Button();
             this.Control_btn = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.IterationNumber = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // funcSet
@@ -80,6 +82,26 @@
             this.Control_btn.UseVisualStyleBackColor = true;
             this.Control_btn.Click += new System.EventHandler(this.Control_btn_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(395, 437);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(133, 17);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Number of iteration:";
+            // 
+            // IterationNumber
+            // 
+            this.IterationNumber.AutoSize = true;
+            this.IterationNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IterationNumber.Location = new System.Drawing.Point(534, 436);
+            this.IterationNumber.Name = "IterationNumber";
+            this.IterationNumber.Size = new System.Drawing.Size(16, 17);
+            this.IterationNumber.TabIndex = 10;
+            this.IterationNumber.Text = "0";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -87,6 +109,8 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(744, 474);
+            this.Controls.Add(this.IterationNumber);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.Control_btn);
             this.Controls.Add(this.stopTimer);
             this.Controls.Add(this.startTimerButton);
@@ -95,6 +119,7 @@
             this.Text = "Conway";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -104,6 +129,8 @@
         private System.Windows.Forms.Button startTimerButton;
         private System.Windows.Forms.Button stopTimer;
         private System.Windows.Forms.Button Control_btn;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label IterationNumber;
     }
 }
 
