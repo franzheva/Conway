@@ -18,6 +18,7 @@ namespace Conway
 
     public partial class Form1 : Form
     {
+
         public int K = 0; // field size
         int n1 = 53;
         int N1 = 0;
@@ -113,22 +114,22 @@ namespace Conway
         }
         public decimal Func(decimal x)
         {
-            decimal a = 0; decimal incode = 0; string mainFunction = f.MainFunction();
+            decimal a = 0; decimal incode = 0; var mainFunction = f.allCellf;
             List<int> Param = f.GetFunc();
             decimal[] inf = f.innerFunc();
             
             //for (int i = 0; i < inf.Length; i++)
             //    incode += inf[i];
             decimal limitParameter = incode + 1;
-            if (mainFunction == "Tent")
-            {
-                return PiecewiseNew(x);               
-            }
-            else
-            {
-                return Logistic(x);
-            }
-
+            //if (mainFunction == "Tent")
+            //{
+            //    return PiecewiseNew(x);               
+            //}
+            //else
+            //{
+            //    return Logistic(x);
+            //}
+           return mainFunction(x);
 
             //    Sum of Tent maps, that represents rules of Game
         }

@@ -12,7 +12,11 @@ namespace Conway
 {
     public partial class Function : Form
     {
-      CheckBox[] cb = new CheckBox[18];
+        
+        public delegate decimal AllCellsFunc(decimal cell);        
+        public CaclulationFunctionVM funcParsing = new CaclulationFunctionVM();
+        public AllCellsFunc allCellf;
+        
         TextBox[] tb = new TextBox[9];
         List<int> Parameters=new List<int>();
         decimal[] innerParameters = new decimal[9];
@@ -27,6 +31,8 @@ namespace Conway
 
         private void Function_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'cellularAutomataDataSet.Common_AnalyticalCA' table. You can move, or remove it, as needed.
+            this.common_AnalyticalCATableAdapter.Fill(this.cellularAutomataDataSet.Common_AnalyticalCA);
             int x, y;
             for (int i = 0; i < 9; i++)
             {
@@ -45,19 +51,16 @@ namespace Conway
                     innerParameters[p] = Convert.ToDecimal(tb[p].Text);
                 else
                     innerParameters[p] = 0;
-                textBox1.Text += innerParameters[p].ToString() + " ";
+                
             }
+            allCellf = new AllCellsFunc(funcParsing.FunctionForAllParsed(CalcFunctionCB.SelectedValue.ToString()));
             fieldSize = Convert.ToInt32(fieldsizetb.Text);
             scale = Convert.ToInt32(scaletb.Text);
-            mainFunction = tentCB.Checked ? "Tent" : "Logistic";
+            //mainFunction = allCellf;
          }
 
         private void Clear_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 18; i++)
-            {
-                textBox1.Text = "";
-            }
 
         }
         public List<int> GetFunc()
@@ -81,17 +84,28 @@ namespace Conway
         {
 
         }
-
-        private void tentCB_CheckedChanged(object sender, EventArgs e)
+        public void ResetCBData()
         {
-            if (logisticCB.Checked)
-                logisticCB.Checked = false;
+            this.commonAnalyticalCABindingSource.ResetBindings(true);
         }
 
-        private void logisticCB_CheckedChanged(object sender, EventArgs e)
+        private void AddNewFunctionBtn_Click(object sender, EventArgs e)
         {
-            if (tentCB.Checked)
-                tentCB.Checked = false;
+
+            AddNewFunction addFuncForm = new AddNewFunction(this);
+            addFuncForm.Show();
         }
+
+        //private void tentCB_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (logisticCB.Checked)
+        //        logisticCB.Checked = false;
+        //}
+
+        //private void logisticCB_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (tentCB.Checked)
+        //        tentCB.Checked = false;
+        //}
     }
 }

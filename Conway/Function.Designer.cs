@@ -28,20 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.Clear = new System.Windows.Forms.Button();
             this.ok = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.tentCB = new System.Windows.Forms.CheckBox();
-            this.logisticCB = new System.Windows.Forms.CheckBox();
             this.fieldsizetb = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.scaletb = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.CalcFunctionCB = new System.Windows.Forms.ComboBox();
+            this.cellularAutomataDataSet = new Conway.CellularAutomataDataSet();
+            this.commonAnalyticalCABindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.common_AnalyticalCATableAdapter = new Conway.CellularAutomataDataSetTableAdapters.Common_AnalyticalCATableAdapter();
+            this.AddNewFunctionBtn = new System.Windows.Forms.Button();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cellularAutomataDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.commonAnalyticalCABindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -56,18 +63,13 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.AddNewFunctionBtn);
+            this.panel1.Controls.Add(this.CalcFunctionCB);
+            this.panel1.Controls.Add(this.label5);
             this.panel1.Location = new System.Drawing.Point(9, 35);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(365, 73);
             this.panel1.TabIndex = 1;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(207, 129);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(222, 60);
-            this.textBox1.TabIndex = 2;
             // 
             // Clear
             // 
@@ -115,28 +117,6 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Outer function";
             // 
-            // tentCB
-            // 
-            this.tentCB.AutoSize = true;
-            this.tentCB.Location = new System.Drawing.Point(232, 196);
-            this.tentCB.Name = "tentCB";
-            this.tentCB.Size = new System.Drawing.Size(48, 17);
-            this.tentCB.TabIndex = 7;
-            this.tentCB.Text = "Tent";
-            this.tentCB.UseVisualStyleBackColor = true;
-            this.tentCB.CheckedChanged += new System.EventHandler(this.tentCB_CheckedChanged);
-            // 
-            // logisticCB
-            // 
-            this.logisticCB.AutoSize = true;
-            this.logisticCB.Location = new System.Drawing.Point(232, 219);
-            this.logisticCB.Name = "logisticCB";
-            this.logisticCB.Size = new System.Drawing.Size(62, 17);
-            this.logisticCB.TabIndex = 8;
-            this.logisticCB.Text = "Logistic";
-            this.logisticCB.UseVisualStyleBackColor = true;
-            this.logisticCB.CheckedChanged += new System.EventHandler(this.logisticCB_CheckedChanged);
-            // 
             // fieldsizetb
             // 
             this.fieldsizetb.Location = new System.Drawing.Point(387, 196);
@@ -169,6 +149,50 @@
             this.scaletb.Size = new System.Drawing.Size(42, 20);
             this.scaletb.TabIndex = 11;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 12);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(81, 13);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Select function:";
+            // 
+            // CalcFunctionCB
+            // 
+            this.CalcFunctionCB.DataSource = this.commonAnalyticalCABindingSource;
+            this.CalcFunctionCB.DisplayMember = "CA_Name";
+            this.CalcFunctionCB.FormattingEnabled = true;
+            this.CalcFunctionCB.Location = new System.Drawing.Point(90, 12);
+            this.CalcFunctionCB.Name = "CalcFunctionCB";
+            this.CalcFunctionCB.Size = new System.Drawing.Size(121, 21);
+            this.CalcFunctionCB.TabIndex = 1;
+            this.CalcFunctionCB.ValueMember = "CA_Function";
+            // 
+            // cellularAutomataDataSet
+            // 
+            this.cellularAutomataDataSet.DataSetName = "CellularAutomataDataSet";
+            this.cellularAutomataDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // commonAnalyticalCABindingSource
+            // 
+            this.commonAnalyticalCABindingSource.DataMember = "Common_AnalyticalCA";
+            this.commonAnalyticalCABindingSource.DataSource = this.cellularAutomataDataSet;
+            // 
+            // common_AnalyticalCATableAdapter
+            // 
+            this.common_AnalyticalCATableAdapter.ClearBeforeFill = true;
+            // 
+            // AddNewFunctionBtn
+            // 
+            this.AddNewFunctionBtn.Location = new System.Drawing.Point(232, 12);
+            this.AddNewFunctionBtn.Name = "AddNewFunctionBtn";
+            this.AddNewFunctionBtn.Size = new System.Drawing.Size(75, 37);
+            this.AddNewFunctionBtn.TabIndex = 13;
+            this.AddNewFunctionBtn.Text = "Add New Function";
+            this.AddNewFunctionBtn.UseVisualStyleBackColor = true;
+            this.AddNewFunctionBtn.Click += new System.EventHandler(this.AddNewFunctionBtn_Click);
+            // 
             // Function
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -178,19 +202,20 @@
             this.Controls.Add(this.scaletb);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.fieldsizetb);
-            this.Controls.Add(this.logisticCB);
-            this.Controls.Add(this.tentCB);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.ok);
             this.Controls.Add(this.Clear);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
             this.Name = "Function";
             this.Text = "Function";
             this.Load += new System.EventHandler(this.Function_Load);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cellularAutomataDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.commonAnalyticalCABindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -200,17 +225,20 @@
 
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button Clear;
         private System.Windows.Forms.Button ok;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox tentCB;
-        private System.Windows.Forms.CheckBox logisticCB;
         private System.Windows.Forms.TextBox fieldsizetb;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox scaletb;
+        private System.Windows.Forms.ComboBox CalcFunctionCB;
+        private System.Windows.Forms.Label label5;
+        private CellularAutomataDataSet cellularAutomataDataSet;
+        private System.Windows.Forms.BindingSource commonAnalyticalCABindingSource;
+        private CellularAutomataDataSetTableAdapters.Common_AnalyticalCATableAdapter common_AnalyticalCATableAdapter;
+        private System.Windows.Forms.Button AddNewFunctionBtn;
     }
 }
