@@ -1,24 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;
-using System.Drawing.Drawing2D;
-
-
-
 
 namespace Conway
 {
 
     public partial class Form1 : Form
     {
-
         public int Height = 0; // field size  
         public int Width = 0;
         public int iteration = 0;
@@ -52,7 +41,6 @@ namespace Conway
 
             for (int i = 0; i < inF.Length; i++)
                 incode += inF[i];
-            //double limitParameter = incode + 1;
             for (int i = 0; i < inF.Length; i++)
                 weightCoefficient[i] = inF[i]/incode;
 
@@ -71,7 +59,6 @@ namespace Conway
         {
             Height = f.Height;
             Width = f.Width;
-            //K = f.fieldSize;
             return Func(
                         innerCode[0] * array[(i - 1) != -1 ? (i-1) : (Height - 1), (j - 1) != -1 ? (j-1) : (Width - 1)] +
                         innerCode[1] * array[(i - 1) != -1 ? (i - 1) : (Height - 1), j] +
@@ -91,31 +78,22 @@ namespace Conway
         }
        
         public void SetInitial()
-        {
-            // K = f.fieldSize; 
+        {            
             SetInit = new decimal[f.Height, f.Width];
             Random rand = new Random();
             int x, x1, x2, y, y1, y2;
-            //for (int i = 0; i < f.Height * f.Width; i++)
-            //{
-            //    x1 = rand.Next(f.Height);
-            //    x2 = rand.Next(f.Height);
-            //    x = (x1 + x2) / 2;
-            //    y1 = rand.Next(f.Width);
-            //    y2 = rand.Next(f.Width);
-            //    y = (y1 + y2) / 2;
-            //    SetInit[x, y] = 1.0m;//Convert.ToDecimal(rand.Next(100)) / 100;
+            for (int i = 0; i < f.Height * f.Width; i++)
+            {
+                x1 = rand.Next(f.Height);
+                x2 = rand.Next(f.Height);
+                x = (x1 + x2) / 2;
+                y1 = rand.Next(f.Width);
+                y2 = rand.Next(f.Width);
+                y = (y1 + y2) / 2;
+                SetInit[x, y] = 1.0m;//Convert.ToDecimal(rand.Next(100)) / 100;
 
-            //}
-            // планер в игре Жизнь
-            SetInit[0, 1] = 1;
-            SetInit[1, 2] = 1;
-            SetInit[2, 0] = 1;
-            SetInit[2, 1] = 1;
-            SetInit[2, 2] = 1;
-            //Print(SetInit);
+            }
 
-            //return SetInit;
         }
         public void SetInitialFromImage(decimal [,] init)
         {
@@ -135,7 +113,6 @@ namespace Conway
         {
             Height = f.Height;
             Width = f.Width;
-            //K = f.fieldSize;
             var scale = f.scale;
             pictureBox1.Size = new Size(Height * scale + 10, Width * scale + 10);
             this.Controls.Add(pictureBox1);
@@ -164,7 +141,6 @@ namespace Conway
             Height = f.Height;
             Width = f.Width;
             var population = 0.0m;
-           // K = f.fieldSize;
             decimal[,] h = new decimal[Height, Width];
             decimal[,] b = new decimal[Height, Width];
            
@@ -194,7 +170,6 @@ namespace Conway
             //let's cycle equals 2 T=2
             Height = f.Height;
             Width = f.Width;
-            //int CAsize = f.fieldSize;
             int Tcycle = 1; decimal div = 3.0m; decimal Epsilon = 0.000000000001m;
             decimal Tetta = 8.0m;//1 / div * (Convert.ToDecimal(Math.Pow(2, Convert.ToDouble(Tcycle + 1))) - 1) + Epsilon; //4.0m;
             decimal a1 = Tetta / (1 + Tetta); decimal a2 = 1 / (1 + Tetta);
@@ -233,16 +208,12 @@ namespace Conway
             if (isFirstLaunch)
             {
                 Cell = new List<decimal[,]>();
-                //var temp = SetInitial();
                 Print(SetInit);
                 Cell.Add(SetInit);
-                //N1 = 0;
                 timer1.Enabled = true;
                 isFirstLaunch = false;
             }
-
             timer1.Enabled = true;
-
         }
 
         private void stopTimer_Click(object sender, EventArgs e)

@@ -157,9 +157,9 @@ namespace Conway
                 Width = image.Width;
                 var initData = new decimal[Height, Width];
                 fieldsizeHeighttb.Text = Height.ToString();
-                fieldsizeHeighttb.ReadOnly = true;
+                //fieldsizeHeighttb.ReadOnly = true;
                 fieldsizeWidthtb.Text = Width.ToString();
-                fieldsizeWidthtb.ReadOnly = true;
+                //fieldsizeWidthtb.ReadOnly = true;
                 scale = 1;
                 scaletb.Text = scale.ToString();
                 for (int i = 0; i < Height; i++)
