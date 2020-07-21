@@ -20,6 +20,7 @@ namespace Conway
     {
 
         public int K = 0; // field size
+        public int iteration = 0;
         int n1 = 53;
         int N1 = 0;
         // int[,] A = new int[50, 50];
@@ -319,6 +320,7 @@ namespace Conway
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            var population = 0.0m;
             K = f.fieldSize;
             decimal[,] h = new decimal[K, K];
             decimal[,] b = new decimal[K, K];
@@ -335,32 +337,8 @@ namespace Conway
             if (isControl && N1>3)
             {
                 b = PredicativeControl(b);
-            }
-            
-            //for (int i = 0; i < K; i++)
-            //for (int j = 0; j < K; j++)
-            //{
-            //   if (N1 > 3)
-            //   {                  
-            //      // bc[i, j] = b1 * Cell[N1-1][i, j] + b2 * Cell[N1 - 3][i, j];
-            //   }
-            //   else
-            //   {
-            //       b[i, j] = Cell[N1][i, j];
-            //   }
-            //}
-            //if (isControl)
-            //{
-            //    var b_temp = Life(b);
-            //    var bc_temp = Life(bc);
-            //    for (int i = 0; i < K; i++)
-            //        for (int j = 0; j < K; j++)
-            //        {
-            //            h[i,j] = (1 - gamma) * b_temp[i, j] + gamma * bc_temp[i, j];
-            //        }
-            //}
-            //else
-            //{
+            }           
+           
            
             h = Life(b);
                         
@@ -368,6 +346,14 @@ namespace Conway
 
             Cell.Add(h);               
             N1 += 1;
+            for (int i = 0; i < K; i++)
+                for (int j = 0; j < K; j++)
+                {
+                   population += b[i, j] ;
+                }
+            iteration += 1;
+            PopulationLabel.Text = population.ToString();
+            IterationLabel.Text = iteration.ToString();
         }
         public decimal[,] PredicativeControl(decimal[,] Xn)
         {
