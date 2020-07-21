@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,21 +13,30 @@ namespace Conway
 {
     public partial class Function : Form
     {
-      CheckBox[] cb = new CheckBox[18];
+        
+        public delegate decimal AllCellsFunc(decimal cell);        
+        public CaclulationFunctionVM funcParsing = new CaclulationFunctionVM();
+        public AllCellsFunc allCellf;
+        private readonly Form1 mainForm;
         TextBox[] tb = new TextBox[9];
-        List<int> Parameters=new List<int>();
-        decimal[] innerParameters = new decimal[9];
-        string mainFunction = string.Empty;
-        public int fieldSize = 0;
+       
+        public decimal[] innerParameters = new decimal[9];
+       
+        public int Height = 0;
+        public int Width = 0;
         public int scale = 0;
-        public Function()
+
+        bool initFromImage = false;
+        public Function(Form1 form)
         {
             InitializeComponent();
-           
+            mainForm = form;
         }
 
         private void Function_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'cellularAutomataDataSet.Common_AnalyticalCA' table. You can move, or remove it, as needed.
+            this.common_AnalyticalCATableAdapter.Fill(this.cellularAutomataDataSet.Common_AnalyticalCA);
             int x, y;
             for (int i = 0; i < 9; i++)
             {
@@ -34,64 +44,143 @@ namespace Conway
                 y = (i == 7 || i == 8 || i == 3) ? 30 : (i == 0 || i == 1 || i == 2) ? 0 : 60;
                 panel2.Controls.Add(tb[i] = new TextBox() { Location = new Point(x, y), Width=28 });
             }
+            ok.Enabled = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-           
-            for (int p=0;p<9;p++)
+            if (fieldsizeHeighttb.Text != "" && fieldsizeWidthtb.Text != "" && scaletb.Text != "")
             {
-                if (tb[p].Text != "")
-                    innerParameters[p] = Convert.ToDecimal(tb[p].Text);
-                else
-                    innerParameters[p] = 0;
-                textBox1.Text += innerParameters[p].ToString() + " ";
+                for (int p = 0; p < 9; p++)
+                {
+                    if (tb[p].Text != "")
+                        innerParameters[p] = Convert.ToDecimal(tb[p].Text);
+                    else
+                        innerParameters[p] = 0;
+
+                }
+                allCellf = new AllCellsFunc(funcParsing.FunctionForAllParsed(CalcFunctionCB.SelectedValue.ToString()));
+                Height = Convert.ToInt32(fieldsizeHeighttb.Text);
+                Width = Convert.ToInt32(fieldsizeWidthtb.Text);
+                scale = Convert.ToInt32(scaletb.Text);
+                ok.Enabled = true;
             }
-            fieldSize = Convert.ToInt32(fieldsizetb.Text);
-            scale = Convert.ToInt32(scaletb.Text);
-            mainFunction = tentCB.Checked ? "Tent" : "Logistic";
-         }
+            else
+            {
+                fieldSizeEmpty.Text = fieldsizeHeighttb.Text != "" && fieldsizeWidthtb.Text != "" ? "" : "*Field size is required";
+                ScaleEmpty.Text = scaletb.Text != "" ? "" : "*Scale is required";
+            }           
+        }
 
         private void Clear_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 18; i++)
-            {
-                textBox1.Text = "";
-            }
+            fieldsizeHeighttb.ReadOnly = false;
+            fieldsizeHeighttb.Text = "Height";
+            fieldsizeHeighttb.ForeColor = Color.DarkGray;
+            Height = 0;
 
+            fieldsizeWidthtb.ReadOnly = false;
+            fieldsizeWidthtb.Text = "Width";
+            fieldsizeWidthtb.ForeColor = Color.DarkGray;
+            Width = 0;
+
+            scaletb.Text = "";
+            scale = 0;
+
+            for (int i = 0; i < 9; i++)
+                tb[i].Text = "";
+
+            ResetCBData();
         }
-        public List<int> GetFunc()
-        {            
-            return Parameters;
-        }
-        public decimal[] innerFunc()
-        {
-            return innerParameters;
-        }
-        public string MainFunction()
-        {
-            return mainFunction;
-        }
+       
         private void ok_Click(object sender, EventArgs e)
         {
+            if (initFromImage)
+            {
+                MessageBox.Show("Initial Data uploaded from image will be applied");
+            }
+            else
+            {
+                MessageBox.Show("Random Initial Data will be applied");
+                mainForm.SetInitial();
+            }
             this.Hide();
+
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
         }
-
-        private void tentCB_CheckedChanged(object sender, EventArgs e)
-        {
-            if (logisticCB.Checked)
-                logisticCB.Checked = false;
+        public void ResetCBData()
+        {            
+            this.commonAnalyticalCABindingSource.ResetBindings(true);
+            CalcFunctionCB.Refresh();
         }
 
-        private void logisticCB_CheckedChanged(object sender, EventArgs e)
+        private void AddNewFunctionBtn_Click(object sender, EventArgs e)
         {
-            if (tentCB.Checked)
-                tentCB.Checked = false;
+
+            AddNewFunction addFuncForm = new AddNewFunction(this);
+            addFuncForm.Show();
+        }
+
+        private void UploadInit_btn_Click(object sender, EventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog();
+            var dialogResult = openFileDialog.ShowDialog();
+            if (dialogResult != DialogResult.OK) return;
+            ImageData(Upload(openFileDialog.FileName));            
+        }
+        private string Upload(string fileName)
+        {           
+            try
+            {
+                var data = File.ReadAllBytes(fileName);
+                using (FileStream fcreate = File.Open(fileName, FileMode.Create))
+                {
+                    fcreate.Write(data, 0, data.Length);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return fileName;
+        }
+        public void ImageData(string path)
+        {
+            if (path != "")
+            {
+                var image = new Bitmap(path);
+                Height = image.Height;
+                Width = image.Width;
+                var initData = new decimal[Height, Width];
+                fieldsizeHeighttb.Text = Height.ToString();
+                fieldsizeHeighttb.ReadOnly = true;
+                fieldsizeWidthtb.Text = Width.ToString();
+                fieldsizeWidthtb.ReadOnly = true;
+                scale = 1;
+                scaletb.Text = scale.ToString();
+                for (int i = 0; i < Height; i++)
+                    for (int j = 0; j < Width; j++)
+                        initData[i, j] = 1 - ((decimal)image.GetPixel(j, i).R) / 255;
+
+                mainForm.SetInitialFromImage(initData);
+                initFromImage = true;
+            }
+        }
+
+        private void FieldsizeHeighttb_MouseDown(object sender, MouseEventArgs e)
+        {
+            fieldsizeHeighttb.Text = "";
+            fieldsizeHeighttb.ForeColor = Color.Black;
+        }
+
+        private void FieldsizeWidthtb_MouseDown(object sender, MouseEventArgs e)
+        {
+            fieldsizeWidthtb.Text = "";
+            fieldsizeWidthtb.ForeColor = Color.Black;
         }
     }
 }

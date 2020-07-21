@@ -100,3 +100,15 @@ C:\Users\franj\Desktop\Conway2901\Conway\obj\Debug\Conway.Form1.resources
 C:\Users\franj\Desktop\Conway2901\Conway\obj\Debug\Conway.Function.resources
 C:\Users\franj\Desktop\Conway2901\Conway\obj\Debug\Conway.Properties.Resources.resources
 C:\Users\franj\Desktop\Conway2901\Conway\obj\Debug\Conway.csproj.GenerateResource.Cache
+D:\Conway2901\Conway\bin\Debug\Conway.exe.config
+D:\Conway2901\Conway\bin\Debug\Conway.exe
+D:\Conway2901\Conway\bin\Debug\Conway.pdb
+D:\Conway2901\Conway\obj\Debug\Conway.csprojResolveAssemblyReference.cache
+D:\Conway2901\Conway\obj\Debug\Conway.ControlSettings.resources
+D:\Conway2901\Conway\obj\Debug\Conway.Form1.resources
+D:\Conway2901\Conway\obj\Debug\Conway.Function.resources
+D:\Conway2901\Conway\obj\Debug\Conway.Properties.Resources.resources
+D:\Conway2901\Conway\obj\Debug\Conway.csproj.GenerateResource.Cache
+D:\Conway2901\Conway\obj\Debug\Conway.exe
+D:\Conway2901\Conway\obj\Debug\Conway.pdb
+D:\Conway2901\Conway\obj\Debug\Conway.AddNewFunction.resources
