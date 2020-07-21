@@ -41,13 +41,15 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.fieldsizetb = new System.Windows.Forms.TextBox();
+            this.fieldsizeHeighttb = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.scaletb = new System.Windows.Forms.TextBox();
             this.common_AnalyticalCATableAdapter = new Conway.CellularAutomataDataSetTableAdapters.Common_AnalyticalCATableAdapter();
             this.fieldSizeEmpty = new System.Windows.Forms.Label();
             this.ScaleEmpty = new System.Windows.Forms.Label();
+            this.UploadInit_btn = new System.Windows.Forms.Button();
+            this.fieldsizeWidthtb = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.commonAnalyticalCABindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cellularAutomataDataSet)).BeginInit();
@@ -55,7 +57,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(383, 13);
+            this.button1.Location = new System.Drawing.Point(383, 27);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -68,9 +70,9 @@
             this.panel1.Controls.Add(this.AddNewFunctionBtn);
             this.panel1.Controls.Add(this.CalcFunctionCB);
             this.panel1.Controls.Add(this.label5);
-            this.panel1.Location = new System.Drawing.Point(9, 35);
+            this.panel1.Location = new System.Drawing.Point(9, 27);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(365, 73);
+            this.panel1.Size = new System.Drawing.Size(365, 81);
             this.panel1.TabIndex = 1;
             // 
             // AddNewFunctionBtn
@@ -115,7 +117,7 @@
             // 
             // Clear
             // 
-            this.Clear.Location = new System.Drawing.Point(383, 42);
+            this.Clear.Location = new System.Drawing.Point(383, 56);
             this.Clear.Name = "Clear";
             this.Clear.Size = new System.Drawing.Size(75, 23);
             this.Clear.TabIndex = 3;
@@ -125,7 +127,7 @@
             // 
             // ok
             // 
-            this.ok.Location = new System.Drawing.Point(383, 71);
+            this.ok.Location = new System.Drawing.Point(383, 85);
             this.ok.Name = "ok";
             this.ok.Size = new System.Drawing.Size(75, 23);
             this.ok.TabIndex = 4;
@@ -146,30 +148,33 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 113);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 13);
+            this.label1.Size = new System.Drawing.Size(66, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Inner function";
+            this.label1.Text = "Cells Weight";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 13);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(74, 13);
+            this.label2.Size = new System.Drawing.Size(113, 13);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Outer function";
+            this.label2.Text = "Recalculation function";
             // 
-            // fieldsizetb
+            // fieldsizeHeighttb
             // 
-            this.fieldsizetb.Location = new System.Drawing.Point(387, 180);
-            this.fieldsizetb.Name = "fieldsizetb";
-            this.fieldsizetb.Size = new System.Drawing.Size(42, 20);
-            this.fieldsizetb.TabIndex = 9;
+            this.fieldsizeHeighttb.ForeColor = System.Drawing.Color.DarkGray;
+            this.fieldsizeHeighttb.Location = new System.Drawing.Point(367, 162);
+            this.fieldsizeHeighttb.Name = "fieldsizeHeighttb";
+            this.fieldsizeHeighttb.Size = new System.Drawing.Size(42, 20);
+            this.fieldsizeHeighttb.TabIndex = 9;
+            this.fieldsizeHeighttb.Text = "Height";
+            this.fieldsizeHeighttb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FieldsizeHeighttb_MouseDown);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(312, 185);
+            this.label3.Location = new System.Drawing.Point(292, 167);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(69, 13);
             this.label3.TabIndex = 10;
@@ -178,7 +183,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(312, 223);
+            this.label4.Location = new System.Drawing.Point(292, 205);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(54, 13);
             this.label4.TabIndex = 12;
@@ -186,7 +191,7 @@
             // 
             // scaletb
             // 
-            this.scaletb.Location = new System.Drawing.Point(387, 218);
+            this.scaletb.Location = new System.Drawing.Point(367, 200);
             this.scaletb.Name = "scaletb";
             this.scaletb.Size = new System.Drawing.Size(42, 20);
             this.scaletb.TabIndex = 11;
@@ -199,7 +204,7 @@
             // 
             this.fieldSizeEmpty.AutoSize = true;
             this.fieldSizeEmpty.ForeColor = System.Drawing.Color.Red;
-            this.fieldSizeEmpty.Location = new System.Drawing.Point(312, 199);
+            this.fieldSizeEmpty.Location = new System.Drawing.Point(292, 181);
             this.fieldSizeEmpty.Name = "fieldSizeEmpty";
             this.fieldSizeEmpty.Size = new System.Drawing.Size(0, 13);
             this.fieldSizeEmpty.TabIndex = 13;
@@ -208,22 +213,44 @@
             // 
             this.ScaleEmpty.AutoSize = true;
             this.ScaleEmpty.ForeColor = System.Drawing.Color.Red;
-            this.ScaleEmpty.Location = new System.Drawing.Point(312, 235);
+            this.ScaleEmpty.Location = new System.Drawing.Point(292, 217);
             this.ScaleEmpty.Name = "ScaleEmpty";
             this.ScaleEmpty.Size = new System.Drawing.Size(0, 13);
             this.ScaleEmpty.TabIndex = 14;
+            // 
+            // UploadInit_btn
+            // 
+            this.UploadInit_btn.Location = new System.Drawing.Point(295, 129);
+            this.UploadInit_btn.Name = "UploadInit_btn";
+            this.UploadInit_btn.Size = new System.Drawing.Size(163, 23);
+            this.UploadInit_btn.TabIndex = 15;
+            this.UploadInit_btn.Text = "Upload Initial Data";
+            this.UploadInit_btn.UseVisualStyleBackColor = true;
+            this.UploadInit_btn.Click += new System.EventHandler(this.UploadInit_btn_Click);
+            // 
+            // fieldsizeWidthtb
+            // 
+            this.fieldsizeWidthtb.ForeColor = System.Drawing.Color.DarkGray;
+            this.fieldsizeWidthtb.Location = new System.Drawing.Point(415, 162);
+            this.fieldsizeWidthtb.Name = "fieldsizeWidthtb";
+            this.fieldsizeWidthtb.Size = new System.Drawing.Size(42, 20);
+            this.fieldsizeWidthtb.TabIndex = 16;
+            this.fieldsizeWidthtb.Text = "Width";
+            this.fieldsizeWidthtb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FieldsizeWidthtb_MouseDown);
             // 
             // Function
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(467, 282);
+            this.Controls.Add(this.fieldsizeWidthtb);
+            this.Controls.Add(this.UploadInit_btn);
             this.Controls.Add(this.ScaleEmpty);
             this.Controls.Add(this.fieldSizeEmpty);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.scaletb);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.fieldsizetb);
+            this.Controls.Add(this.fieldsizeHeighttb);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel2);
@@ -252,7 +279,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox fieldsizetb;
+        private System.Windows.Forms.TextBox fieldsizeHeighttb;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox scaletb;
@@ -264,5 +291,7 @@
         private System.Windows.Forms.Button AddNewFunctionBtn;
         private System.Windows.Forms.Label fieldSizeEmpty;
         private System.Windows.Forms.Label ScaleEmpty;
+        private System.Windows.Forms.Button UploadInit_btn;
+        private System.Windows.Forms.TextBox fieldsizeWidthtb;
     }
 }

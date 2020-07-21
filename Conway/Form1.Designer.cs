@@ -44,7 +44,7 @@
             // 
             this.funcSet.Location = new System.Drawing.Point(631, 23);
             this.funcSet.Name = "funcSet";
-            this.funcSet.Size = new System.Drawing.Size(75, 23);
+            this.funcSet.Size = new System.Drawing.Size(79, 23);
             this.funcSet.TabIndex = 3;
             this.funcSet.Text = "Set Function";
             this.funcSet.UseVisualStyleBackColor = true;
@@ -52,13 +52,14 @@
             // 
             // timer1
             // 
+            this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // startTimerButton
             // 
-            this.startTimerButton.Location = new System.Drawing.Point(631, 84);
+            this.startTimerButton.Location = new System.Drawing.Point(631, 86);
             this.startTimerButton.Name = "startTimerButton";
-            this.startTimerButton.Size = new System.Drawing.Size(75, 23);
+            this.startTimerButton.Size = new System.Drawing.Size(79, 23);
             this.startTimerButton.TabIndex = 6;
             this.startTimerButton.Text = "Start timer";
             this.startTimerButton.UseVisualStyleBackColor = true;
@@ -66,9 +67,9 @@
             // 
             // stopTimer
             // 
-            this.stopTimer.Location = new System.Drawing.Point(631, 114);
+            this.stopTimer.Location = new System.Drawing.Point(631, 116);
             this.stopTimer.Name = "stopTimer";
-            this.stopTimer.Size = new System.Drawing.Size(75, 23);
+            this.stopTimer.Size = new System.Drawing.Size(79, 23);
             this.stopTimer.TabIndex = 7;
             this.stopTimer.Text = "Pause timer";
             this.stopTimer.UseVisualStyleBackColor = true;
@@ -76,9 +77,9 @@
             // 
             // Control_btn
             // 
-            this.Control_btn.Location = new System.Drawing.Point(631, 52);
+            this.Control_btn.Location = new System.Drawing.Point(631, 54);
             this.Control_btn.Name = "Control_btn";
-            this.Control_btn.Size = new System.Drawing.Size(75, 23);
+            this.Control_btn.Size = new System.Drawing.Size(79, 23);
             this.Control_btn.TabIndex = 8;
             this.Control_btn.Text = "Control";
             this.Control_btn.UseVisualStyleBackColor = true;
