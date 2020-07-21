@@ -7,3 +7,7 @@ Conway/bin/Debug/Conway.pdb
 Conway/bin/Debug/Conway.exe
 .vs/Conway/v14/.suo
 Conway/bin/Debug/Conway.vshost.exe.manifest
+.vs/Conway/v16/Server/sqlite3/db.lock
+.vs/Conway/v16/Server/sqlite3/storage.ide
+.vs/Conway/v16/Server/sqlite3/storage.ide-shm
+.vs/Conway/v16/Server/sqlite3/storage.ide-wal
