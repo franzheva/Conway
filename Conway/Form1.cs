@@ -21,6 +21,8 @@ namespace Conway
 
         public int Height = 0; // field size  
         public int Width = 0;
+        public int iteration = 0;      
+
         int N1 = 0;
         Function f = new Function();
         ControlSettings cs = new ControlSettings();
@@ -159,6 +161,7 @@ namespace Conway
         {
             Height = f.Height;
             Width = f.Width;
+            var population = 0.0m;
            // K = f.fieldSize;
             decimal[,] h = new decimal[Height, Width];
             decimal[,] b = new decimal[Height, Width];
@@ -167,18 +170,22 @@ namespace Conway
                 for (int j = 0; j < Width; j++)
                 {
                     b[i, j] = Cell[N1][i, j];
+                    population += b[i, j] ;
                 }
             if (isControl && N1>3)
             {
                 b = PredicativeControl(b);
-            }
-           
+            }           
             h = Life(b);
                         
             Print(h);
 
             Cell.Add(h);               
             N1 += 1;
+          
+            iteration += 1;
+            PopulationLabel.Text = population.ToString();
+            IterationLabel.Text = iteration.ToString();
         }
         public decimal[,] PredicativeControl(decimal[,] Xn)
         {
