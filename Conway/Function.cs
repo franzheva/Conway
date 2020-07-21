@@ -27,10 +27,10 @@ namespace Conway
         public int scale = 0;
 
         bool initFromImage = false;
-        public Function()
+        public Function(Form1 form)
         {
             InitializeComponent();
-           
+            mainForm = form;
         }
 
         private void Function_Load(object sender, EventArgs e)
@@ -89,6 +89,8 @@ namespace Conway
 
             for (int i = 0; i < 9; i++)
                 tb[i].Text = "";
+
+            ResetCBData();
         }
        
         private void ok_Click(object sender, EventArgs e)
@@ -162,7 +164,7 @@ namespace Conway
                 scaletb.Text = scale.ToString();
                 for (int i = 0; i < Height; i++)
                     for (int j = 0; j < Width; j++)
-                        initData[i, j] = 1 - ((decimal)image.GetPixel(i, j).R) / 255;
+                        initData[i, j] = 1 - ((decimal)image.GetPixel(j, i).R) / 255;
 
                 mainForm.SetInitialFromImage(initData);
                 initFromImage = true;

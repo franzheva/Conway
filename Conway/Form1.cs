@@ -21,10 +21,9 @@ namespace Conway
 
         public int Height = 0; // field size  
         public int Width = 0;
-        public int iteration = 0;      
-
-        int N1 = 0;
-        Function f = new Function();
+        public int iteration = 0;
+        Function f;
+        int N1 = 0;        
         ControlSettings cs = new ControlSettings();
         private List<decimal[,]> Cell;
         decimal[,] SetInit;
@@ -33,7 +32,8 @@ namespace Conway
         public bool isControl = false;
         public Form1()
         {
-            InitializeComponent();           
+            InitializeComponent();
+            f = new Function(this);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -92,32 +92,34 @@ namespace Conway
        
         public void SetInitial()
         {
-           // K = f.fieldSize; 
+            // K = f.fieldSize; 
+            SetInit = new decimal[f.Height, f.Width];
             Random rand = new Random();
             int x, x1, x2, y, y1, y2;
-            for (int i = 0; i < f.Height * f.Width; i++)
-            {
-                x1 = rand.Next(f.Height);
-                x2 = rand.Next(f.Height);
-                x = (x1 + x2) / 2;
-                y1 = rand.Next(f.Width);
-                y2 = rand.Next(f.Width);
-                y = (y1 + y2) / 2;
-                SetInit[x, y] = 1.0m;//Convert.ToDecimal(rand.Next(100)) / 100;
+            //for (int i = 0; i < f.Height * f.Width; i++)
+            //{
+            //    x1 = rand.Next(f.Height);
+            //    x2 = rand.Next(f.Height);
+            //    x = (x1 + x2) / 2;
+            //    y1 = rand.Next(f.Width);
+            //    y2 = rand.Next(f.Width);
+            //    y = (y1 + y2) / 2;
+            //    SetInit[x, y] = 1.0m;//Convert.ToDecimal(rand.Next(100)) / 100;
 
-            }
+            //}
             // планер в игре Жизнь
-            //SetInit[0, 1, 0] = 1;
-            //SetInit[1, 2, 0] = 1;
-            //SetInit[2, 0, 0] = 1;
-            //SetInit[2, 1, 0] = 1;
-            //SetInit[2, 2, 0] = 1;
+            SetInit[0, 1] = 1;
+            SetInit[1, 2] = 1;
+            SetInit[2, 0] = 1;
+            SetInit[2, 1] = 1;
+            SetInit[2, 2] = 1;
             //Print(SetInit);
 
             //return SetInit;
         }
         public void SetInitialFromImage(decimal [,] init)
         {
+            SetInit = new decimal[f.Height, f.Width];
             for (int i = 0; i < f.Height; i++)
                 for (int j = 0; j < f.Width; j++)
                     SetInit[i, j] = init[i, j];
