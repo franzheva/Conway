@@ -33,6 +33,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.AddBtn = new System.Windows.Forms.Button();
+            this.NameLabelWarning = new System.Windows.Forms.Label();
+            this.FunctionLabelWarning = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // FunctionNameTB
@@ -78,11 +80,31 @@
             this.AddBtn.UseVisualStyleBackColor = true;
             this.AddBtn.Click += new System.EventHandler(this.AddBtn_Click);
             // 
+            // NameLabelWarning
+            // 
+            this.NameLabelWarning.AutoSize = true;
+            this.NameLabelWarning.ForeColor = System.Drawing.Color.Red;
+            this.NameLabelWarning.Location = new System.Drawing.Point(91, 49);
+            this.NameLabelWarning.Name = "NameLabelWarning";
+            this.NameLabelWarning.Size = new System.Drawing.Size(0, 13);
+            this.NameLabelWarning.TabIndex = 5;
+            // 
+            // FunctionLabelWarning
+            // 
+            this.FunctionLabelWarning.AutoSize = true;
+            this.FunctionLabelWarning.ForeColor = System.Drawing.Color.Red;
+            this.FunctionLabelWarning.Location = new System.Drawing.Point(91, 210);
+            this.FunctionLabelWarning.Name = "FunctionLabelWarning";
+            this.FunctionLabelWarning.Size = new System.Drawing.Size(0, 13);
+            this.FunctionLabelWarning.TabIndex = 6;
+            // 
             // AddNewFunction
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(293, 269);
+            this.Controls.Add(this.FunctionLabelWarning);
+            this.Controls.Add(this.NameLabelWarning);
             this.Controls.Add(this.AddBtn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -102,5 +124,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button AddBtn;
+        private System.Windows.Forms.Label NameLabelWarning;
+        private System.Windows.Forms.Label FunctionLabelWarning;
     }
 }

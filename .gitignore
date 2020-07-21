@@ -11,3 +11,6 @@ Conway/bin/Debug/Conway.vshost.exe.manifest
 .vs/Conway/v16/Server/sqlite3/storage.ide
 .vs/Conway/v16/Server/sqlite3/storage.ide-shm
 .vs/Conway/v16/Server/sqlite3/storage.ide-wal
+.vs/Conway/v16/.suo
+Conway/obj/Debug/Conway.csproj.CoreCompileInputs.cache
+Conway/obj/Debug/Conway.csprojAssemblyReference.cache

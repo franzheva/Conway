@@ -40,24 +40,33 @@ namespace Conway
                 y = (i == 7 || i == 8 || i == 3) ? 30 : (i == 0 || i == 1 || i == 2) ? 0 : 60;
                 panel2.Controls.Add(tb[i] = new TextBox() { Location = new Point(x, y), Width=28 });
             }
+            ok.Enabled = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-           
-            for (int p=0;p<9;p++)
+            if (fieldsizetb.Text != "" && scaletb.Text != "")
             {
-                if (tb[p].Text != "")
-                    innerParameters[p] = Convert.ToDecimal(tb[p].Text);
-                else
-                    innerParameters[p] = 0;
-                
+                for (int p = 0; p < 9; p++)
+                {
+                    if (tb[p].Text != "")
+                        innerParameters[p] = Convert.ToDecimal(tb[p].Text);
+                    else
+                        innerParameters[p] = 0;
+
+                }
+                allCellf = new AllCellsFunc(funcParsing.FunctionForAllParsed(CalcFunctionCB.SelectedValue.ToString()));
+                fieldSize = Convert.ToInt32(fieldsizetb.Text);
+                scale = Convert.ToInt32(scaletb.Text);
+                ok.Enabled = true;
             }
-            allCellf = new AllCellsFunc(funcParsing.FunctionForAllParsed(CalcFunctionCB.SelectedValue.ToString()));
-            fieldSize = Convert.ToInt32(fieldsizetb.Text);
-            scale = Convert.ToInt32(scaletb.Text);
+            else
+            {
+                fieldSizeEmpty.Text = fieldsizetb.Text != "" ? "" : "*Field size is required";
+                ScaleEmpty.Text = scaletb.Text != "" ? "" : "*Scale is required";
+            }
             //mainFunction = allCellf;
-         }
+        }
 
         private void Clear_Click(object sender, EventArgs e)
         {
@@ -85,8 +94,9 @@ namespace Conway
 
         }
         public void ResetCBData()
-        {
+        {            
             this.commonAnalyticalCABindingSource.ResetBindings(true);
+            CalcFunctionCB.Refresh();
         }
 
         private void AddNewFunctionBtn_Click(object sender, EventArgs e)
