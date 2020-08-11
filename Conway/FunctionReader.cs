@@ -11,7 +11,7 @@ namespace Conway
 {
     public static class FunctionReader
     {
-        public static Func<decimal, decimal> Parse(string input)
+        public static Func<decimal[], decimal> Parse(string input)
         {
             var provider = new CSharpCodeProvider();
             var parameters = new CompilerParameters { GenerateInMemory = true };
@@ -24,13 +24,13 @@ namespace Conway
  
                                public static class LambdaCreator 
                                {{
-                                   public static decimal F(decimal x)
+                                   public static decimal F(decimal[]f)
                                    {{
                                        {input};
                                    }}
                                }}");
                 var method = results.CompiledAssembly.GetType("LambdaCreator").GetMethod("F");
-                return (Func<decimal, decimal>)Delegate.CreateDelegate(typeof(Func<decimal, decimal>), null, method);
+                return (Func<decimal[], decimal>)Delegate.CreateDelegate(typeof(Func<decimal[], decimal>), null, method);
             }
             catch (FileNotFoundException)
             {

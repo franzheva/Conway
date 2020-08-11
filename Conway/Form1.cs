@@ -71,6 +71,7 @@ namespace Conway
         {
             Height = f.Height;
             Width = f.Width;
+            var alfa = 0.5m;
             //K = f.fieldSize;
             return Func(
                         innerCode[0] * array[(i - 1) != -1 ? (i-1) : (Height - 1), (j - 1) != -1 ? (j-1) : (Width - 1)] +
@@ -80,14 +81,19 @@ namespace Conway
                         innerCode[3] * array[i, (j + 1) != Width ? (j + 1) : 0] +
                         innerCode[6] * array[(i + 1) != Height ? (i+1) : 0, (j - 1) != -1 ? (j - 1) : (Width - 1)] +
                         innerCode[5] * array[(i + 1) != Height ? (i + 1) : 0, j] +
-                        innerCode[4] * array[(i + 1) != Height ? (i + 1) : 0, (j + 1) != Width ? (j + 1) : 0] +
-                        innerCode[8] * array[i, j]
+                        innerCode[4] * array[(i + 1) != Height ? (i + 1) : 0, (j + 1) != Width ? (j + 1) : 0],
+                        innerCode[8] * array[i, j],
+                        alfa
                         );
         }
-        public decimal Func(decimal x)
+        public decimal Func(decimal y, decimal x, decimal alfa)
         {
-            var mainFunction = f.allCellf; 
-            return mainFunction(x);
+            var mainFunction = f.allCellf;
+            var funcSet = new decimal[3];
+            funcSet[0] = y;
+            funcSet[1] = x;
+            funcSet[2] = alfa;
+            return mainFunction(funcSet);
         }
        
         public void SetInitial()

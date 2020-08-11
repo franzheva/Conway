@@ -14,7 +14,7 @@ namespace Conway
     public partial class Function : Form
     {
         
-        public delegate decimal AllCellsFunc(decimal cell);        
+        public delegate decimal AllCellsFunc(decimal[] cell);        
         public CaclulationFunctionVM funcParsing = new CaclulationFunctionVM();
         public AllCellsFunc allCellf;
         private readonly Form1 mainForm;
@@ -59,7 +59,7 @@ namespace Conway
                         innerParameters[p] = 0;
 
                 }
-                allCellf = new AllCellsFunc(funcParsing.FunctionForAllParsed(CalcFunctionCB.SelectedValue.ToString()));
+                allCellf = new AllCellsFunc(funcParsing.FunctionForAllParsed("return 4*(1-f[2]*f[0])*f[1]*(1-f[1]);"));//CalcFunctionCB.SelectedValue.ToString()
                 Height = Convert.ToInt32(fieldsizeHeighttb.Text);
                 Width = Convert.ToInt32(fieldsizeWidthtb.Text);
                 scale = Convert.ToInt32(scaletb.Text);
