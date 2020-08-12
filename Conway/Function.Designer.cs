@@ -51,6 +51,7 @@
             this.ScaleEmpty = new System.Windows.Forms.Label();
             this.UploadInit_btn = new System.Windows.Forms.Button();
             this.fieldsizeWidthtb = new System.Windows.Forms.TextBox();
+            this.weightsLbl = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.commonAnalyticalCABindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cellularAutomataDataSet)).BeginInit();
@@ -251,11 +252,22 @@
             this.fieldsizeWidthtb.Text = "Width";
             this.fieldsizeWidthtb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FieldsizeWidthtb_MouseDown);
             // 
+            // weightsLbl
+            // 
+            this.weightsLbl.AutoSize = true;
+            this.weightsLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.weightsLbl.ForeColor = System.Drawing.Color.Red;
+            this.weightsLbl.Location = new System.Drawing.Point(19, 247);
+            this.weightsLbl.Name = "weightsLbl";
+            this.weightsLbl.Size = new System.Drawing.Size(0, 16);
+            this.weightsLbl.TabIndex = 17;
+            // 
             // Function
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(467, 282);
+            this.Controls.Add(this.weightsLbl);
             this.Controls.Add(this.fieldsizeWidthtb);
             this.Controls.Add(this.UploadInit_btn);
             this.Controls.Add(this.ScaleEmpty);
@@ -271,6 +283,7 @@
             this.Controls.Add(this.Clear);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
+            this.MaximizeBox = false;
             this.Name = "Function";
             this.Text = "Function";
             this.Load += new System.EventHandler(this.Function_Load);
@@ -307,5 +320,6 @@
         private System.Windows.Forms.Button UploadInit_btn;
         private System.Windows.Forms.TextBox fieldsizeWidthtb;
         private System.Windows.Forms.CheckBox useCurrentAsSeparate;
+        private System.Windows.Forms.Label weightsLbl;
     }
 }
