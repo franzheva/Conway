@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.useCurrentAsSeparate = new System.Windows.Forms.CheckBox();
             this.AddNewFunctionBtn = new System.Windows.Forms.Button();
             this.CalcFunctionCB = new System.Windows.Forms.ComboBox();
             this.commonAnalyticalCABindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -67,6 +68,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.useCurrentAsSeparate);
             this.panel1.Controls.Add(this.AddNewFunctionBtn);
             this.panel1.Controls.Add(this.CalcFunctionCB);
             this.panel1.Controls.Add(this.label5);
@@ -74,6 +76,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(365, 81);
             this.panel1.TabIndex = 1;
+            // 
+            // useCurrentAsSeparate
+            // 
+            this.useCurrentAsSeparate.AutoSize = true;
+            this.useCurrentAsSeparate.Location = new System.Drawing.Point(6, 58);
+            this.useCurrentAsSeparate.Name = "useCurrentAsSeparate";
+            this.useCurrentAsSeparate.Size = new System.Drawing.Size(249, 17);
+            this.useCurrentAsSeparate.TabIndex = 14;
+            this.useCurrentAsSeparate.Text = "Use current cell as separate function parameter";
+            this.useCurrentAsSeparate.UseVisualStyleBackColor = true;
+            this.useCurrentAsSeparate.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
             // 
             // AddNewFunctionBtn
             // 
@@ -293,5 +306,6 @@
         private System.Windows.Forms.Label ScaleEmpty;
         private System.Windows.Forms.Button UploadInit_btn;
         private System.Windows.Forms.TextBox fieldsizeWidthtb;
+        private System.Windows.Forms.CheckBox useCurrentAsSeparate;
     }
 }

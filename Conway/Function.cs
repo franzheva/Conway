@@ -14,14 +14,14 @@ namespace Conway
     public partial class Function : Form
     {
         
-        public delegate decimal AllCellsFunc(decimal[] cell);        
+        public delegate decimal AllCellsFunc(decimal x, decimal y);        
         public CaclulationFunctionVM funcParsing = new CaclulationFunctionVM();
         public AllCellsFunc allCellf;
         private readonly Form1 mainForm;
         TextBox[] tb = new TextBox[9];
        
         public decimal[] innerParameters = new decimal[9];
-       
+        public bool currentSeparate = false;
         public int Height = 0;
         public int Width = 0;
         public int scale = 0;
@@ -59,7 +59,7 @@ namespace Conway
                         innerParameters[p] = 0;
 
                 }
-                allCellf = new AllCellsFunc(funcParsing.FunctionForAllParsed("return 4*(1-f[2]*f[0])*f[1]*(1-f[1]);"));//CalcFunctionCB.SelectedValue.ToString()
+                allCellf = new AllCellsFunc(funcParsing.FunctionForAllParsed("return 4*(1-0.5m*y)*x*(1-x);"));//CalcFunctionCB.SelectedValue.ToString()
                 Height = Convert.ToInt32(fieldsizeHeighttb.Text);
                 Width = Convert.ToInt32(fieldsizeWidthtb.Text);
                 scale = Convert.ToInt32(scaletb.Text);
@@ -182,5 +182,20 @@ namespace Conway
             fieldsizeWidthtb.Text = "";
             fieldsizeWidthtb.ForeColor = Color.Black;
         }
-    }
+
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (useCurrentAsSeparate.Checked)
+            {
+                tb[8].Text = "1";
+                tb[8].ReadOnly = true;
+                currentSeparate = true;
+            }
+            else {
+                tb[8].Text = "";
+                tb[8].ReadOnly = false;
+                currentSeparate = false;
+            }
+        }
+    }    
 }
