@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.useCurrentAsSeparate = new System.Windows.Forms.CheckBox();
             this.AddNewFunctionBtn = new System.Windows.Forms.Button();
             this.CalcFunctionCB = new System.Windows.Forms.ComboBox();
             this.commonAnalyticalCABindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -50,6 +51,7 @@
             this.ScaleEmpty = new System.Windows.Forms.Label();
             this.UploadInit_btn = new System.Windows.Forms.Button();
             this.fieldsizeWidthtb = new System.Windows.Forms.TextBox();
+            this.weightsLbl = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.commonAnalyticalCABindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cellularAutomataDataSet)).BeginInit();
@@ -67,6 +69,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.useCurrentAsSeparate);
             this.panel1.Controls.Add(this.AddNewFunctionBtn);
             this.panel1.Controls.Add(this.CalcFunctionCB);
             this.panel1.Controls.Add(this.label5);
@@ -74,9 +77,21 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(365, 81);
             this.panel1.TabIndex = 1;
+            //
+            // useCurrentAsSeparate
+            // 
+            this.useCurrentAsSeparate.AutoSize = true;
+            this.useCurrentAsSeparate.Location = new System.Drawing.Point(6, 58);
+            this.useCurrentAsSeparate.Name = "useCurrentAsSeparate";
+            this.useCurrentAsSeparate.Size = new System.Drawing.Size(249, 17);
+            this.useCurrentAsSeparate.TabIndex = 14;
+            this.useCurrentAsSeparate.Text = "Use current cell as separate function parameter";
+            this.useCurrentAsSeparate.UseVisualStyleBackColor = true;
+            this.useCurrentAsSeparate.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
             // 
             // AddNewFunctionBtn
             // 
+
             this.AddNewFunctionBtn.Location = new System.Drawing.Point(232, 12);
             this.AddNewFunctionBtn.Name = "AddNewFunctionBtn";
             this.AddNewFunctionBtn.Size = new System.Drawing.Size(75, 37);
@@ -183,7 +198,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(292, 205);
+            this.label4.Location = new System.Drawing.Point(292, 207);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(54, 13);
             this.label4.TabIndex = 12;
@@ -191,7 +206,7 @@
             // 
             // scaletb
             // 
-            this.scaletb.Location = new System.Drawing.Point(367, 200);
+            this.scaletb.Location = new System.Drawing.Point(367, 202);
             this.scaletb.Name = "scaletb";
             this.scaletb.Size = new System.Drawing.Size(42, 20);
             this.scaletb.TabIndex = 11;
@@ -213,7 +228,7 @@
             // 
             this.ScaleEmpty.AutoSize = true;
             this.ScaleEmpty.ForeColor = System.Drawing.Color.Red;
-            this.ScaleEmpty.Location = new System.Drawing.Point(292, 221);
+            this.ScaleEmpty.Location = new System.Drawing.Point(292, 225);
             this.ScaleEmpty.Name = "ScaleEmpty";
             this.ScaleEmpty.Size = new System.Drawing.Size(0, 13);
             this.ScaleEmpty.TabIndex = 14;
@@ -238,11 +253,22 @@
             this.fieldsizeWidthtb.Text = "Width";
             this.fieldsizeWidthtb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FieldsizeWidthtb_MouseDown);
             // 
+            // weightsLbl
+            // 
+            this.weightsLbl.AutoSize = true;
+            this.weightsLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.weightsLbl.ForeColor = System.Drawing.Color.Red;
+            this.weightsLbl.Location = new System.Drawing.Point(19, 247);
+            this.weightsLbl.Name = "weightsLbl";
+            this.weightsLbl.Size = new System.Drawing.Size(0, 16);
+            this.weightsLbl.TabIndex = 17;
+            // 
             // Function
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(467, 282);
+            this.Controls.Add(this.weightsLbl);
             this.Controls.Add(this.fieldsizeWidthtb);
             this.Controls.Add(this.UploadInit_btn);
             this.Controls.Add(this.ScaleEmpty);
@@ -258,6 +284,7 @@
             this.Controls.Add(this.Clear);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
+            this.MaximizeBox = false;
             this.Name = "Function";
             this.Text = "Function";
             this.Load += new System.EventHandler(this.Function_Load);
@@ -293,5 +320,7 @@
         private System.Windows.Forms.Label ScaleEmpty;
         private System.Windows.Forms.Button UploadInit_btn;
         private System.Windows.Forms.TextBox fieldsizeWidthtb;
+        private System.Windows.Forms.CheckBox useCurrentAsSeparate;
+        private System.Windows.Forms.Label weightsLbl;
     }
 }
