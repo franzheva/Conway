@@ -14,7 +14,8 @@ namespace Conway
     public partial class Function : Form
     {
         
-        public delegate decimal AllCellsFunc(decimal x, decimal y);        
+
+        public delegate decimal AllCellsFunc(decimal x, decimal y);
         public CaclulationFunctionVM funcParsing = new CaclulationFunctionVM();
         public AllCellsFunc allCellf;
         private readonly Form1 mainForm;
@@ -25,12 +26,10 @@ namespace Conway
         public int HeightImg = 0;
         public int WidthImg = 0;
         public int scale = 0;
-
         bool initFromImage = false;
         public Function(Form1 form)
         {
-            InitializeComponent();
-            
+            InitializeComponent();            
             ClearControlls();
             mainForm = form;
         }
@@ -38,7 +37,7 @@ namespace Conway
         private void Function_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'cellularAutomataDataSet.Common_AnalyticalCA' table. You can move, or remove it, as needed.
-            //this.common_AnalyticalCATableAdapter.Fill(this.cellularAutomataDataSet.Common_AnalyticalCA);
+            this.common_AnalyticalCATableAdapter.Fill(this.cellularAutomataDataSet.Common_AnalyticalCA);
             int x, y;
             for (int i = 0; i < 9; i++)
             {
@@ -46,6 +45,7 @@ namespace Conway
                 y = (i == 7 || i == 8 || i == 3) ? 30 : (i == 0 || i == 1 || i == 2) ? 0 : 60;
                 panel2.Controls.Add(tb[i] = new TextBox() { Location = new Point(x, y), Width=28 });
             }            
+
             ok.Enabled = false;
         }
 
@@ -92,7 +92,6 @@ namespace Conway
         }
         public void Validation()
         {
-
             fieldSizeEmpty.Text = (fieldsizeHeighttb.Text != "" && fieldsizeHeighttb.Text != "Height")
                 && (fieldsizeWidthtb.Text != "Width" && fieldsizeWidthtb.Text != "") ? "" : "*Field size is required";
             ScaleEmpty.Text = scaletb.Text != "" ? "" : "*Scale is required";
@@ -112,10 +111,8 @@ namespace Conway
             fieldsizeWidthtb.Text = "Width";
             fieldsizeWidthtb.ForeColor = Color.DarkGray;
             WidthImg = 0;
-
             scaletb.Text = "";
             scale = 0;
-
             fieldSizeEmpty.Text = "";
             ScaleEmpty.Text = "";
             weightsLbl.Text = "";
@@ -125,9 +122,7 @@ namespace Conway
                 if (tb[i] != null)
                     tb[i].Text = "";
             }
-
             ok.Enabled = false;
-
             ResetCBData();
         }
        
@@ -152,6 +147,7 @@ namespace Conway
         {
 
         }
+
         public void ResetCBData()
         {            
             this.commonAnalyticalCABindingSource.ResetBindings(true);
@@ -160,7 +156,7 @@ namespace Conway
 
         private void AddNewFunctionBtn_Click(object sender, EventArgs e)
         {
-            AddNewFunction addFuncForm = new AddNewFunction(this);           
+            AddNewFunction addFuncForm = new AddNewFunction(this);
             addFuncForm.Show();
         }
 
@@ -234,6 +230,7 @@ namespace Conway
                 tb[8].Text = "";
                 tb[8].ReadOnly = false;
                 currentSeparate = false;
+
             }
         }
     }    

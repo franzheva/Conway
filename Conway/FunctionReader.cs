@@ -12,6 +12,7 @@ namespace Conway
             var provider = new CSharpCodeProvider();
             var parameters = new CompilerParameters { GenerateInMemory = true };
             parameters.ReferencedAssemblies.Add("System.dll");
+
             
             try
             {
@@ -27,6 +28,7 @@ namespace Conway
                                }}");
                 var method = results.CompiledAssembly.GetType("LambdaCreator").GetMethod("F");
                 return (Func<decimal, decimal, decimal>)Delegate.CreateDelegate(typeof(Func<decimal, decimal, decimal>),null, method);
+
             }
             catch (FileNotFoundException)
             {
@@ -35,5 +37,4 @@ namespace Conway
 
         }
     }
-
 }

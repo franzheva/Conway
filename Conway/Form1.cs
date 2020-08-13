@@ -1,17 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;
-using System.Drawing.Drawing2D;
-
-
-
 
 namespace Conway
 {
@@ -19,16 +9,19 @@ namespace Conway
     public partial class Form1 : Form
     {
 
+
         public int HeightField = 0; // field size  
         public int WidthField = 0;
         public int iteration = 0;
         Function f;
         public int N1 = 0;        
+
         ControlSettings cs = new ControlSettings();
         private List<decimal[,]> Cell;
         decimal[,] SetInit;
 
         public bool isFirstLaunch = true;
+
         public bool isControl = false;
         public Form1()
         {
@@ -46,6 +39,7 @@ namespace Conway
             DrawingPanel.Location = new Point(0, PanelForSettings.Height);
             DrawingPanel.Width = this.Width;
             DrawingPanel.Height = this.Height - PanelForSettings.Height;
+
         }
         public decimal[,] Life(decimal[,] ArrayStart)
         {
@@ -55,19 +49,15 @@ namespace Conway
             decimal[,] ret = new decimal[HeightField, WidthField];
             decimal[] inF = f.innerParameters;           
             decimal incode = 0;            
-            
             decimal[] weightCoefficient = new decimal[inF.Length];
-
             for (int i = 0; i < inF.Length; i++)
                 incode += inF[i];
-            //double limitParameter = incode + 1;
             for (int i = 0; i < inF.Length; i++)
                 weightCoefficient[i] = inF[i]/incode;
-
-
             for (int i = 0; i < HeightField; i++)
             {
                 for (int j = 0; j < WidthField; j++)
+
                 {
                     ret[i, j] = ArrayRecalculated(i, j, weightCoefficient, ArrayStart);
                 }
@@ -142,6 +132,7 @@ namespace Conway
         PictureBox pictureBox1 = new PictureBox();
         public void CreateBitmapAtRuntime(decimal[,] A)
         {
+
             HeightField = f.HeightImg;
             WidthField = f.WidthImg;
             //K = f.fieldSize;
@@ -183,12 +174,13 @@ namespace Conway
                 for (int j = 0; j < WidthField; j++)
                 {
                     b[i, j] = Cell[N1][i, j];
+                    population += b[i, j] ;
                 }
             if (isControl && N1>3)
             {
                 b = PredicativeControl(b);
             }
-           
+
             h = Life(b);
                         
             Print(h);
@@ -207,6 +199,7 @@ namespace Conway
         public decimal[,] PredicativeControl(decimal[,] Xn)
         {
             //let's cycle equals 2 T=2
+
             HeightField = f.HeightImg;
             WidthField = f.WidthImg;
             //int CAsize = f.fieldSize;
@@ -224,6 +217,7 @@ namespace Conway
                 Xn_predicativeTemporary = Xn_predicative;                              
             }
             //calculating control body for main function
+
             for (int i = 0; i < HeightField; i++)
                 for (int j = 0; j < WidthField; j++)
                 {                   
@@ -254,12 +248,11 @@ namespace Conway
                 Print(SetInit);
                 Cell.Add(SetInit);
                 //N1 = 0;
+
                 timer1.Enabled = true;
                 isFirstLaunch = false;
             }
-
             timer1.Enabled = true;
-
         }
 
         private void stopTimer_Click(object sender, EventArgs e)

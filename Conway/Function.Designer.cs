@@ -77,7 +77,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(365, 81);
             this.panel1.TabIndex = 1;
-            // 
+            //
             // useCurrentAsSeparate
             // 
             this.useCurrentAsSeparate.AutoSize = true;
@@ -91,6 +91,7 @@
             // 
             // AddNewFunctionBtn
             // 
+
             this.AddNewFunctionBtn.Location = new System.Drawing.Point(232, 12);
             this.AddNewFunctionBtn.Name = "AddNewFunctionBtn";
             this.AddNewFunctionBtn.Size = new System.Drawing.Size(75, 37);

@@ -41,6 +41,7 @@
             this.PanelForSettings = new System.Windows.Forms.Panel();
             this.DrawingPanel = new System.Windows.Forms.Panel();
             this.PanelForSettings.SuspendLayout();
+
             this.SuspendLayout();
             // 
             // funcSet
@@ -55,12 +56,13 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // startTimerButton
             // 
+
             this.startTimerButton.Location = new System.Drawing.Point(203, 3);
+
             this.startTimerButton.Name = "startTimerButton";
             this.startTimerButton.Size = new System.Drawing.Size(79, 23);
             this.startTimerButton.TabIndex = 6;
@@ -70,7 +72,9 @@
             // 
             // stopTimer
             // 
-            this.stopTimer.Location = new System.Drawing.Point(288, 3);
+
+            this.stopTimer.Location = new System.Drawing.Point(288, 3);          
+
             this.stopTimer.Name = "stopTimer";
             this.stopTimer.Size = new System.Drawing.Size(79, 23);
             this.stopTimer.TabIndex = 7;
@@ -80,6 +84,7 @@
             // 
             // Control_btn
             // 
+
             this.Control_btn.Location = new System.Drawing.Point(88, 3);
             this.Control_btn.Name = "Control_btn";
             this.Control_btn.Size = new System.Drawing.Size(79, 23);
@@ -91,10 +96,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
+
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(200, 43);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(75, 16);
+
             this.label1.TabIndex = 9;
             this.label1.Text = "Population:";
             // 
@@ -115,6 +122,7 @@
             this.IterationLabel.Location = new System.Drawing.Point(87, 43);
             this.IterationLabel.Name = "IterationLabel";
             this.IterationLabel.Size = new System.Drawing.Size(15, 16);
+
             this.IterationLabel.TabIndex = 12;
             this.IterationLabel.Text = "0";
             // 
@@ -151,6 +159,7 @@
             this.DrawingPanel.Size = new System.Drawing.Size(740, 381);
             this.DrawingPanel.TabIndex = 14;
             // 
+
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -167,6 +176,7 @@
             this.PanelForSettings.ResumeLayout(false);
             this.PanelForSettings.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -182,6 +192,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel PanelForSettings;
         private System.Windows.Forms.Panel DrawingPanel;
+
     }
 }
 

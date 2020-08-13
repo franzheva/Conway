@@ -111,6 +111,7 @@
             this.Controls.Add(this.FunctionTB);
             this.Controls.Add(this.FunctionNameTB);
             this.MaximizeBox = false;
+
             this.Name = "AddNewFunction";
             this.Text = "AddNewFunction";
             this.ResumeLayout(false);
