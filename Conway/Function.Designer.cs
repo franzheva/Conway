@@ -204,7 +204,7 @@
             // 
             this.fieldSizeEmpty.AutoSize = true;
             this.fieldSizeEmpty.ForeColor = System.Drawing.Color.Red;
-            this.fieldSizeEmpty.Location = new System.Drawing.Point(292, 181);
+            this.fieldSizeEmpty.Location = new System.Drawing.Point(292, 185);
             this.fieldSizeEmpty.Name = "fieldSizeEmpty";
             this.fieldSizeEmpty.Size = new System.Drawing.Size(0, 13);
             this.fieldSizeEmpty.TabIndex = 13;
@@ -213,7 +213,7 @@
             // 
             this.ScaleEmpty.AutoSize = true;
             this.ScaleEmpty.ForeColor = System.Drawing.Color.Red;
-            this.ScaleEmpty.Location = new System.Drawing.Point(292, 217);
+            this.ScaleEmpty.Location = new System.Drawing.Point(292, 221);
             this.ScaleEmpty.Name = "ScaleEmpty";
             this.ScaleEmpty.Size = new System.Drawing.Size(0, 13);
             this.ScaleEmpty.TabIndex = 14;

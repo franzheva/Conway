@@ -26,7 +26,8 @@ namespace Conway
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {           
+        {
+            startTimerButton.Enabled = false;
         }
         public decimal[,] Life(decimal[,] ArrayStart)
         {

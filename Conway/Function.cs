@@ -49,7 +49,7 @@ namespace Conway
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (fieldsizeHeighttb.Text != "" && fieldsizeWidthtb.Text != "" && scaletb.Text != "")
+            if (fieldsizeHeighttb.Text != "" && fieldsizeHeighttb.Text != "Height" && fieldsizeWidthtb.Text != "Width" && fieldsizeWidthtb.Text != "" && scaletb.Text != "")
             {
                 for (int p = 0; p < 9; p++)
                 {
@@ -64,12 +64,19 @@ namespace Conway
                 Width = Convert.ToInt32(fieldsizeWidthtb.Text);
                 scale = Convert.ToInt32(scaletb.Text);
                 ok.Enabled = true;
+                Validation();
             }
             else
             {
-                fieldSizeEmpty.Text = fieldsizeHeighttb.Text != "" && fieldsizeWidthtb.Text != "" ? "" : "*Field size is required";
-                ScaleEmpty.Text = scaletb.Text != "" ? "" : "*Scale is required";
+                Validation();
             }           
+        }
+        public void Validation()
+        {
+
+            fieldSizeEmpty.Text = (fieldsizeHeighttb.Text != "" && fieldsizeHeighttb.Text != "Height")
+                && (fieldsizeWidthtb.Text != "Width" && fieldsizeWidthtb.Text != "") ? "" : "*Field size is required";
+            ScaleEmpty.Text = scaletb.Text != "" ? "" : "*Scale is required";
         }
 
         private void Clear_Click(object sender, EventArgs e)
@@ -156,12 +163,18 @@ namespace Conway
                 Height = image.Height;
                 Width = image.Width;
                 var initData = new decimal[Height, Width];
+
+                fieldsizeHeighttb.ForeColor = Color.Black;
                 fieldsizeHeighttb.Text = Height.ToString();
-                //fieldsizeHeighttb.ReadOnly = true;
+                fieldsizeHeighttb.ReadOnly = true;
+
+                fieldsizeWidthtb.ForeColor = Color.Black;
                 fieldsizeWidthtb.Text = Width.ToString();
-                //fieldsizeWidthtb.ReadOnly = true;
+                fieldsizeWidthtb.ReadOnly = true;
+
                 scale = 1;
                 scaletb.Text = scale.ToString();
+
                 for (int i = 0; i < Height; i++)
                     for (int j = 0; j < Width; j++)
                         initData[i, j] = 1 - ((decimal)image.GetPixel(j, i).R) / 255;
@@ -173,14 +186,20 @@ namespace Conway
 
         private void FieldsizeHeighttb_MouseDown(object sender, MouseEventArgs e)
         {
-            fieldsizeHeighttb.Text = "";
-            fieldsizeHeighttb.ForeColor = Color.Black;
+            if (!fieldsizeHeighttb.ReadOnly)
+            {
+                fieldsizeHeighttb.Text = "";
+                fieldsizeHeighttb.ForeColor = Color.Black;
+            }
         }
 
         private void FieldsizeWidthtb_MouseDown(object sender, MouseEventArgs e)
         {
-            fieldsizeWidthtb.Text = "";
-            fieldsizeWidthtb.ForeColor = Color.Black;
+            if (!fieldsizeWidthtb.ReadOnly)
+            {
+                fieldsizeWidthtb.Text = "";
+                fieldsizeWidthtb.ForeColor = Color.Black;
+            }
         }
     }
 }
