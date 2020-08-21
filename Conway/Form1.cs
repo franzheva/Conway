@@ -147,21 +147,23 @@ namespace Conway
             //K = f.fieldSize;
             var scale = f.scale;
             
-            pictureBox1.Size = new Size(HeightField * scale + 10, WidthField * scale + 10);
+            pictureBox1.Size = new Size(WidthField * scale + 10, HeightField * scale + 10);
             //this.Controls.Add(pictureBox1);
             DrawingPanel.Controls.Add(pictureBox1);
-            Bitmap myAutomataField = new Bitmap(HeightField * scale, WidthField * scale);
-            Graphics flagGraphics = Graphics.FromImage(myAutomataField);            
-            for (int i = 0; i < HeightField; i++)
+            Bitmap myAutomataField = new Bitmap(WidthField * scale,  HeightField * scale);
+            Graphics flagGraphics = Graphics.FromImage(myAutomataField);
+            for (int j = 0; j < WidthField; j++) 
             {
-                for (int j = 0; j < WidthField; j++)
+                for (int i = 0; i < HeightField; i++)
                 {
                     int col = Convert.ToInt32((1 - A[i, j]) * 255); //Math.Abs(1 - A[j, i]) old version
-                    flagGraphics.FillRectangle(new SolidBrush(Color.FromArgb(col, col, col)), i * scale, j * scale, scale, scale); //(col, col, col) try to (col, 0, 0)
+                    flagGraphics.FillRectangle(new SolidBrush(Color.FromArgb(col, col, col)), j * scale, i * scale, scale, scale); //(col, col, col) try to (col, 0, 0)
                 }
             }
             
             pictureBox1.Image = myAutomataField;
+            
+            myAutomataField.Save($"../../Uploads/{iteration}_iteration.jpg");
         }
         private void funcSet_Click(object sender, EventArgs e)
         {
@@ -190,15 +192,16 @@ namespace Conway
                 b = PredicativeControl(b);
             }           
             h = Life(b);
-                        
+            iteration += 1;
             Print(h);
 
             Cell.Add(h);               
             N1 += 1;
           
-            iteration += 1;
+            
             PopulationLabel.Text = population.ToString();
             IterationLabel.Text = iteration.ToString();
+
         }
         public decimal[,] PredicativeControl(decimal[,] Xn)
         {
