@@ -8,7 +8,7 @@ namespace Conway
 {
     public class CaclulationFunctionVM
     {
-        public Func<decimal, decimal> FunctionForAllParsed(string FunctionForAll)
+        public Func<decimal, decimal, decimal> FunctionForAllParsed(string FunctionForAll)
         {
             return FunctionReader.Parse(FunctionForAll);
         }
