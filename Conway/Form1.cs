@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using ClosedXML.Excel;
 
 namespace Conway
 {
@@ -13,6 +14,7 @@ namespace Conway
         public int HeightField = 0; // field size  
         public int WidthField = 0;
         public int iteration = 0;
+        public decimal population = 0.0m;
         Function f;
         public int N1 = 0;        
 
@@ -36,7 +38,7 @@ namespace Conway
         public void PanelForSettings_Position()
         {            
             PanelForSettings.Width = this.Width;
-            DrawingPanel.Location = new Point(0, PanelForSettings.Height);
+            DrawingPanel.Location = new System.Drawing.Point(0, PanelForSettings.Height);
             DrawingPanel.Width = this.Width;
             DrawingPanel.Height = this.Height - PanelForSettings.Height;
 
@@ -69,7 +71,6 @@ namespace Conway
         {
             HeightField = f.HeightImg;
             WidthField = f.WidthImg;
-            //K = f.fieldSize;
             return Func(
                         innerCode[0] * array[(i - 1) != -1 ? (i-1) : (HeightField - 1), (j - 1) != -1 ? (j-1) : (WidthField - 1)] +
                         innerCode[1] * array[(i - 1) != -1 ? (i - 1) : (HeightField - 1), j] +
@@ -91,7 +92,7 @@ namespace Conway
        
         public void SetInitial()
         {
-            // K = f.fieldSize; 
+            population = 0.0m;            
             SetInit = new decimal[f.HeightImg, f.WidthImg];
             Random rand = new Random();
             int x, x1, x2, y, y1, y2;
@@ -114,9 +115,12 @@ namespace Conway
                 for (int j = 0; j < f.WidthImg; j++)
                 {
                     SetInit[i, j] = (Convert.ToDecimal(rand.Next(100)) +1) / 101 ;
-
+                    population += SetInit[i, j];
                 }
             }
+            iteration = 1;
+            PopulationLabel.Text = population.ToString();
+            IterationLabel.Text = iteration.ToString();
             // планер в игре Жизнь
             //SetInit[0, 1] = 1;
             //SetInit[1, 2] = 1;
@@ -148,15 +152,21 @@ namespace Conway
             //SetInit[3, 1] = 0.4m;
             //SetInit[3, 2] = 0.3m;
             //SetInit[3, 3] = 0.5m;
-            //SetInit[3, 4] = 0.6m;
-            Print(SetInit);
+            //SetInit[3, 4] = 0.6m;           
         }
         public void SetInitialFromImage(decimal [,] init)
         {
+            population = 0.0m;
             SetInit = new decimal[f.HeightImg, f.WidthImg];
             for (int i = 0; i < f.HeightImg; i++)
                 for (int j = 0; j < f.WidthImg; j++)
+                {
                     SetInit[i, j] = init[i, j];
+                    population += init[i, j];
+                }
+            iteration = 1;
+            PopulationLabel.Text = population.ToString();
+            IterationLabel.Text = iteration.ToString();            
         }
        
         private void Print(decimal[,] A)
@@ -167,12 +177,9 @@ namespace Conway
         PictureBox pictureBox1 = new PictureBox();
         public void CreateBitmapAtRuntime(decimal[,] A)
         {
-
             HeightField = f.HeightImg;
-            WidthField = f.WidthImg;
-            //K = f.fieldSize;
-            var scale = f.scale;
-            
+            WidthField = f.WidthImg;            
+            var scale = f.scale;            
             pictureBox1.Size = new Size(WidthField * scale + 10, HeightField * scale + 10);
             //this.Controls.Add(pictureBox1);
             DrawingPanel.Controls.Add(pictureBox1);
@@ -189,7 +196,8 @@ namespace Conway
             
             pictureBox1.Image = myAutomataField;
             
-            myAutomataField.Save($"../../Uploads/{iteration}_iteration.jpg");
+            myAutomataField.Save($"../../Uploads/logs/{iteration}_iteration.jpg");
+            WriteLog(A);
         }
         private void funcSet_Click(object sender, EventArgs e)
         {
@@ -202,39 +210,30 @@ namespace Conway
         {
             HeightField = f.HeightImg;
             WidthField = f.WidthImg;
-            var population = 0.0m;
-           // K = f.fieldSize;
-            decimal[,] h = new decimal[HeightField, WidthField];
-            decimal[,] b = new decimal[HeightField, WidthField];
-           
-            for (int i = 0; i < HeightField; i++)
-                for (int j = 0; j < WidthField; j++)
-                {
-                    b[i, j] = Cell[N1][i, j];
-                    //population += b[i, j] ;
-                }
+            population = 0.0m;          
+            
             if (isControl && N1 > 3)
             {
-                h = FeedBackControlLinearT3();
-                //FeedBackControlLinear();//FeedBackControl();
-                //b = PredicativeControl(b);
+                Cell.Add(FeedBackControlLinearT3());                
             }
             else
             {
-                h = Life(b);
+                Cell.Add(Life(Cell[N1]));
             }
-            iteration += 1;
-            Print(h);
-
-            Cell.Add(h);               
             N1 += 1;
-          
-            
+            for (int i = 0; i < HeightField; i++)
+                for (int j = 0; j < WidthField; j++)             
+                    population += Cell[N1][i, j];
+                
+            iteration += 1;
+
             PopulationLabel.Text = population.ToString();
             IterationLabel.Text = iteration.ToString();
 
+            Print(Cell[N1]);
+
         }
-        public decimal[,] PredicativeControl(decimal[,] Xn)
+        public decimal[,] PredicativeControl()
         {
             //let's cycle equals 2 T=2
 
@@ -245,7 +244,7 @@ namespace Conway
             decimal Tetta = 256.0m;//1 / div * (Convert.ToDecimal(Math.Pow(2, Convert.ToDouble(Tcycle + 1))) - 1) + Epsilon; //4.0m;
             decimal a1 = Tetta / (1 + Tetta); decimal a2 = 1 / (1 + Tetta);
             decimal[,] Xn_predicative = new decimal[HeightField, WidthField];
-            decimal[,] Xn_predicativeTemporary = Xn;
+            decimal[,] Xn_predicativeTemporary = Cell[N1];
             decimal[,] Xn_controled = new decimal[HeightField, WidthField];
 
             //Calculating for predicative part of control
@@ -259,9 +258,9 @@ namespace Conway
             for (int i = 0; i < HeightField; i++)
                 for (int j = 0; j < WidthField; j++)
                 {                   
-                   Xn_controled[i, j] = a1 * Xn[i, j] + a2 * Xn_predicative[i, j];                  
+                   Xn_controled[i, j] = a1 * Cell[N1][i, j] + a2 * Xn_predicative[i, j];                  
                 }
-            return Xn_controled;
+            return Life(Xn_controled);
         }
 
         public decimal[,] FeedBackControl()
@@ -297,21 +296,19 @@ namespace Conway
             WidthField = f.WidthImg;
             
             decimal a1 = 0.56m; decimal a2 = 0.33m; decimal a3 = 0.11m;
-
-            decimal[,] Xn_controled = new decimal[HeightField, WidthField];
+            
             decimal[,] Xn_average = new decimal[HeightField, WidthField];
 
             for (int i = 0; i < HeightField; i++)
                 for (int j = 0; j < WidthField; j++)
                 {
                     Xn_average[i, j] = a1 * Xn[i, j] + a2 * Xn_1[i, j]+a3*Xn_2[i,j];
-                }
-            Xn_controled = Life(Xn_average);
-            return Xn_controled;
+                }           
+            return Life(Xn_average);
         }
         public decimal[,] FeedBackControlLinearT3()
         {
-            //let's cycle equals 2 T=2
+            //let's cycle equals 3 T=3
             var Xn = Cell[N1];
             var Xn_1 = Cell[N1 - 3];
             var Xn_2 = Cell[N1 - 6];
@@ -321,16 +318,37 @@ namespace Conway
 
             decimal a1 = 0.639m; decimal a2 = 0.269m; decimal a3 = 0.092m; decimal a4 = 0.0m;
 
-            decimal[,] Xn_controled = new decimal[HeightField, WidthField];
             decimal[,] Xn_average = new decimal[HeightField, WidthField];
 
             for (int i = 0; i < HeightField; i++)
                 for (int j = 0; j < WidthField; j++)
                 {
                     Xn_average[i, j] = a1 * Xn[i, j] + a2 * Xn_1[i, j] + a3 * Xn_2[i, j] + a4*Xn_3[i,j];
-                }
-            Xn_controled = Life(Xn_average);
-            return Xn_controled;
+                }           
+            return Life(Xn_average);
+        }
+        public void WriteLog(decimal[,] logArray)
+        {
+            var CA_dt = new System.Data.DataTable($"iteration_{iteration}");
+            for (int i = 0; i < WidthField; i++)
+                CA_dt.Columns.Add();
+            for (int i = 0; i < HeightField; i++)
+            {
+                var dr = CA_dt.NewRow();
+                //dr[0] = i;
+                for (int j = 0; j < WidthField; j++)
+                    dr[j] = logArray[i, j];
+                CA_dt.Rows.Add(dr);
+            }
+
+            var pop_row = CA_dt.NewRow();
+            pop_row[0] = "Population:";
+            pop_row[1] = population;
+            CA_dt.Rows.Add(pop_row);
+            var wb = new XLWorkbook();
+            wb.Worksheets.Add(CA_dt).Columns().AdjustToContents();
+            
+            wb.SaveAs($"../../Uploads/logs/{iteration}_iteration.xlsx");
         }
 
         //Practical implementation todo:
