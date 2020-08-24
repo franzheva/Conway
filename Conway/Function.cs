@@ -72,7 +72,23 @@ namespace Conway
                     HeightImg = Convert.ToInt32(fieldsizeHeighttb.Text);
                     WidthImg = Convert.ToInt32(fieldsizeWidthtb.Text);
                     scale = Convert.ToInt32(scaletb.Text);
-                    allCellf = new AllCellsFunc(funcParsing.FunctionForAllParsed("return 4*(1-0.5m*y)*x*(1-x);"));//CalcFunctionCB.SelectedValue.ToString()
+                    allCellf = new AllCellsFunc(funcParsing.FunctionForAllParsed(CalcFunctionCB.SelectedValue.ToString()));//
+
+//                    Logistic    return 4 * x * (1 - x);
+//                    Tent    return 1 - Math.Abs(2 * x - 1);
+//                    x   return x;
+//                    Life    decimal d = 17.0m; if (x >= 5 / d && x < 8 / d) { return 1; } else { return 0; }
+//                    linear  return 2 * x - 16
+//linear  return 2 * x - 16
+//test function   return x / 2;
+//                    test2   return Convert.ToDecimal(Math.Pow(x, 2));
+//                    Population  return 4 * (1 - 0.5m * y) * x * (1 - x);
+//                    Population alfa = 0.3 return 4 * (1 - 0.3m * y) * x * (1 - x);
+//                    Population alfa = 0.2 return 4 * (1 - 0.2m * y) * x * (1 - x);
+//                    Population alfa = 0.1 return 4 * (1 - 0.1m * y) * x * (1 - x);
+//                    population alfa = 0   return 4 * (1 - 0.0m * y) * x * (1 - x);
+//                    population alfa = 0.05    return 4 * (1 - 0.05m * y) * x * (1 - x);
+
                     ok.Enabled = true;
                     weightsLbl.ForeColor = Color.Green;
                     weightsLbl.Text = "Data set is completed. Press OK to continue";
@@ -139,6 +155,7 @@ namespace Conway
             }
            
             mainForm.isFirstLaunch = true;
+            mainForm.iteration = 0;
             this.Hide();
 
         }
@@ -222,7 +239,7 @@ namespace Conway
         {
             if (useCurrentAsSeparate.Checked)
             {
-                tb[8].Text = "1";
+                tb[8].Text = "0";
                 tb[8].ReadOnly = true;
                 currentSeparate = true;
             }
