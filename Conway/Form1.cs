@@ -389,6 +389,8 @@ namespace Conway
         private void Control_btn_Click(object sender, EventArgs e)
         {
             isControl = isControl ? false : true;
+            Control_Label.Text = isControl ? "Control is on" : "Control is off";
+            Control_Label.ForeColor = isControl ? Color.Green : Color.Red;
         }
 
         private void Form1_Resize(object sender, EventArgs e)
