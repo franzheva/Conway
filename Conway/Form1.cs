@@ -18,6 +18,7 @@ namespace Conway
         public decimal avrPopulation = 0.0m;
         public decimal tcyclePopulation = 0.0m;
         public List<decimal> populationStatistic = new List<decimal>();
+        public List<populationTCycleStatisticVM> populationTCycleStatistic = new List<populationTCycleStatisticVM>();
         Function f;
         public int N1 = 0;        
 
@@ -215,8 +216,8 @@ namespace Conway
             
             pictureBox1.Image = myAutomataField;
             
-            myAutomataField.Save($"../../Uploads/logs/{iteration}_iteration.jpg");
-            WriteLog(A);
+            //myAutomataField.Save($"../../Uploads/logs/{iteration}_iteration.jpg");
+            //WriteLog(A);
         }
         private void funcSet_Click(object sender, EventArgs e)
         {
@@ -251,7 +252,7 @@ namespace Conway
 
             populationStatistic.Add(avrPopulation);
             tcyclePopulation = isControl ? populationStatistic[N1 - 3] - populationStatistic[N1] : 0;
-
+            if (isControl) { populationTCycleStatistic.Add(new populationTCycleStatisticVM { iteration = N1, population = tcyclePopulation }); }
             PopulationLabel.Text = population.ToString();
             AveragePopulationLbl.Text = avrPopulation.ToString();
             TcycleCoincidenceLbl.Text = tcyclePopulation.ToString();
@@ -451,6 +452,33 @@ namespace Conway
         private void Form1_Resize(object sender, EventArgs e)
         {
             PanelForSettings_Position();
+        }
+
+        private void ExportPopDataBtn_Click(object sender, EventArgs e)
+        {
+            var statistic_dt = new System.Data.DataTable($"iteration_{iteration}");
+            var Columns = new string[] { "Iteration", "Average Population", "_", "Iteration_", "Tcycle coincides" };
+            for (int i = 0; i < 5; i++)
+             statistic_dt.Columns.Add(Columns[i]);                
+
+            for (int i = 0; i < N1; i++)
+            {
+                var dr = statistic_dt.NewRow();
+                //dr[0] = i;
+
+                dr[0] = i;
+                dr[1] = populationStatistic[i];
+                dr[2] = "";
+                dr[3] = populationTCycleStatistic.Count - i <= 0 ? "" : populationTCycleStatistic[i].iteration.ToString();
+                dr[4] = populationTCycleStatistic.Count-i<=0 ? "": populationTCycleStatistic[i].population.ToString();
+
+                statistic_dt.Rows.Add(dr);
+            }
+           
+            var wb = new XLWorkbook();
+            wb.Worksheets.Add(statistic_dt).Columns().AdjustToContents();
+
+            wb.SaveAs($"../../Uploads/logs/{iteration}_populationStatistic.xlsx");
         }
     }
 }

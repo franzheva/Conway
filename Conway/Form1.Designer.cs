@@ -40,6 +40,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.PanelForSettings = new System.Windows.Forms.Panel();
             this.DrawingPanel = new System.Windows.Forms.Panel();
+            this.AveragePopulationLbl = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.TcycleCoincidenceLbl = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.ExportPopDataBtn = new System.Windows.Forms.Button();
             this.PanelForSettings.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,7 +60,6 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // startTimerButton
@@ -92,7 +96,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(200, 43);
+            this.label1.Location = new System.Drawing.Point(370, 7);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(75, 16);
             this.label1.TabIndex = 9;
@@ -102,7 +106,7 @@
             // 
             this.PopulationLabel.AutoSize = true;
             this.PopulationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PopulationLabel.Location = new System.Drawing.Point(278, 43);
+            this.PopulationLabel.Location = new System.Drawing.Point(448, 7);
             this.PopulationLabel.Name = "PopulationLabel";
             this.PopulationLabel.Size = new System.Drawing.Size(15, 16);
             this.PopulationLabel.TabIndex = 10;
@@ -131,6 +135,11 @@
             // PanelForSettings
             // 
             this.PanelForSettings.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.PanelForSettings.Controls.Add(this.ExportPopDataBtn);
+            this.PanelForSettings.Controls.Add(this.TcycleCoincidenceLbl);
+            this.PanelForSettings.Controls.Add(this.label6);
+            this.PanelForSettings.Controls.Add(this.AveragePopulationLbl);
+            this.PanelForSettings.Controls.Add(this.label4);
             this.PanelForSettings.Controls.Add(this.Control_btn);
             this.PanelForSettings.Controls.Add(this.IterationLabel);
             this.PanelForSettings.Controls.Add(this.funcSet);
@@ -150,6 +159,56 @@
             this.DrawingPanel.Name = "DrawingPanel";
             this.DrawingPanel.Size = new System.Drawing.Size(740, 381);
             this.DrawingPanel.TabIndex = 14;
+            // 
+            // AveragePopulationLbl
+            // 
+            this.AveragePopulationLbl.AutoSize = true;
+            this.AveragePopulationLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AveragePopulationLbl.Location = new System.Drawing.Point(500, 27);
+            this.AveragePopulationLbl.Name = "AveragePopulationLbl";
+            this.AveragePopulationLbl.Size = new System.Drawing.Size(15, 16);
+            this.AveragePopulationLbl.TabIndex = 14;
+            this.AveragePopulationLbl.Text = "0";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(370, 27);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(132, 16);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "Average  population:";
+            // 
+            // TcycleCoincidenceLbl
+            // 
+            this.TcycleCoincidenceLbl.AutoSize = true;
+            this.TcycleCoincidenceLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TcycleCoincidenceLbl.Location = new System.Drawing.Point(500, 47);
+            this.TcycleCoincidenceLbl.Name = "TcycleCoincidenceLbl";
+            this.TcycleCoincidenceLbl.Size = new System.Drawing.Size(15, 16);
+            this.TcycleCoincidenceLbl.TabIndex = 16;
+            this.TcycleCoincidenceLbl.Text = "0";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(370, 47);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(132, 16);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "T-cycle coincidence:";
+            // 
+            // ExportPopDataBtn
+            // 
+            this.ExportPopDataBtn.Location = new System.Drawing.Point(203, 36);
+            this.ExportPopDataBtn.Name = "ExportPopDataBtn";
+            this.ExportPopDataBtn.Size = new System.Drawing.Size(164, 23);
+            this.ExportPopDataBtn.TabIndex = 17;
+            this.ExportPopDataBtn.Text = "Export Population Data";
+            this.ExportPopDataBtn.UseVisualStyleBackColor = true;
+            this.ExportPopDataBtn.Click += new System.EventHandler(this.ExportPopDataBtn_Click);
             // 
             // Form1
             // 
@@ -182,7 +241,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel PanelForSettings;
         private System.Windows.Forms.Panel DrawingPanel;
-
+        private System.Windows.Forms.Label TcycleCoincidenceLbl;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label AveragePopulationLbl;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button ExportPopDataBtn;
     }
 }
 
