@@ -29,12 +29,13 @@ namespace Conway
         public bool isFirstLaunch = true;
 
         public bool isControl = false;
+
+        PictureBox pictureBox1 = new PictureBox();
         public Form1()
         {
             InitializeComponent();
             f = new Function(this);
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             PanelForSettings_Position();
@@ -56,21 +57,19 @@ namespace Conway
             decimal[] inF = f.innerParameters;           
             decimal incode = 0;            
             decimal[] weightCoefficient = new decimal[inF.Length];
+
             for (int i = 0; i < inF.Length; i++)
                 incode += inF[i];
+
             for (int i = 0; i < inF.Length; i++)
                 weightCoefficient[i] = inF[i]/incode;
-            for (int i = 0; i < HeightField; i++)
-            {
-                for (int j = 0; j < WidthField; j++)
 
-                {
+            for (int i = 0; i < HeightField; i++)
+                for (int j = 0; j < WidthField; j++)
                     ret[i, j] = ArrayRecalculated(i, j, weightCoefficient, ArrayStart);
-                }
-            }
+
             return ret;
-        }
-       
+        }       
         public decimal ArrayRecalculated(int i, int j, decimal [] innerCode, decimal[,] array)
         {
             HeightField = f.HeightImg;
@@ -92,12 +91,14 @@ namespace Conway
             var mainFunction = f.allCellf;
             x = f.currentSeparate ? x : x + y;         
             return mainFunction(x,y);            
-        }
-       
+        }       
         public void SetInitial()
         {
             population = 0.0m;
-            avrPopulation = 0.0m;           
+            avrPopulation = 0.0m;
+            tcyclePopulation = 0.0m;
+            populationStatistic = new List<decimal>();
+            populationTCycleStatistic = new List<populationTCycleStatisticVM>();
             SetInit = new decimal[f.HeightImg, f.WidthImg];
             Random rand = new Random();
             int x, x1, x2, y, y1, y2;
@@ -156,45 +157,31 @@ namespace Conway
             //SetInit[4, 4] = 0.6m;
 
             for (int i = 0; i < f.HeightImg; i++)
-            {
                 for (int j = 0; j < f.WidthImg; j++)
-                {
                     SetInit[i, j] = (Convert.ToDecimal(rand.Next(100)) + 1) / 101;
-                    population += SetInit[i, j];
-                }
-            }
+
             iteration = 1;
-            avrPopulation = population / (f.WidthImg * f.HeightImg);
-            populationStatistic.Add(avrPopulation);
-            PopulationLabel.Text = population.ToString();
-            AveragePopulationLbl.Text = avrPopulation.ToString();
-            IterationLabel.Text = iteration.ToString();
+            PopulationCalculation(SetInit);
         }
         public void SetInitialFromImage(decimal [,] init)
         {
             population = 0.0m;
             avrPopulation = 0.0m;
+            tcyclePopulation = 0.0m;
+            populationStatistic = new List<decimal>();
+            populationTCycleStatistic = new List<populationTCycleStatisticVM>();
             SetInit = new decimal[f.HeightImg, f.WidthImg];
             for (int i = 0; i < f.HeightImg; i++)
                 for (int j = 0; j < f.WidthImg; j++)
-                {
                     SetInit[i, j] = init[i, j];
-                    population += init[i, j];
-                }
+
             iteration = 1;
-            avrPopulation = population / (f.WidthImg * f.HeightImg);
-            populationStatistic.Add(avrPopulation);
-            PopulationLabel.Text = population.ToString();
-            AveragePopulationLbl.Text = avrPopulation.ToString();
-            IterationLabel.Text = iteration.ToString();            
-        }
-       
+            PopulationCalculation(SetInit);
+        }       
         private void Print(decimal[,] A)
         {
             CreateBitmapAtRuntime(A);
-        }
-
-        PictureBox pictureBox1 = new PictureBox();
+        }        
         public void CreateBitmapAtRuntime(decimal[,] A)
         {
             HeightField = f.HeightImg;
@@ -225,7 +212,6 @@ namespace Conway
             f = new Function(this);                
             f.Show();           
         }      
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             HeightField = f.HeightImg;
@@ -243,21 +229,7 @@ namespace Conway
                 Cell.Add(Life(Cell[N1]));
             }
             N1 += 1;
-            for (int i = 0; i < HeightField; i++)
-                for (int j = 0; j < WidthField; j++)             
-                    population += Cell[N1][i, j];
-                
-            iteration += 1;
-            avrPopulation = population / (WidthField * HeightField);
-
-            populationStatistic.Add(avrPopulation);
-            tcyclePopulation = isControl ? populationStatistic[N1 - 3] - populationStatistic[N1] : 0;
-            if (isControl) { populationTCycleStatistic.Add(new populationTCycleStatisticVM { iteration = N1, population = tcyclePopulation }); }
-            PopulationLabel.Text = population.ToString();
-            AveragePopulationLbl.Text = avrPopulation.ToString();
-            TcycleCoincidenceLbl.Text = tcyclePopulation.ToString();
-            IterationLabel.Text = iteration.ToString();
-
+            PopulationCalculation();
             Print(Cell[N1]);
 
         }
@@ -290,7 +262,6 @@ namespace Conway
                 }
             return Life(Xn_controled);
         }
-
         public decimal[,] FeedBackControl()
         {
             //let's cycle equals 2 T=2
@@ -313,7 +284,6 @@ namespace Conway
           
             return Xn_controled;
         }
-
         public decimal[,] FeedBackControlLinear()
         {
             //let's cycle equals 2 T=2
@@ -363,7 +333,6 @@ namespace Conway
                     Xn_controled[i, j] = (1 - gamma) * temp[i, j] + gamma * (0.5m * Xn_0t_1[i,j] + 0.5m * Xn_t_1[i, j]);
             return Xn_controled;
         }
-
         public decimal[,] FeedBackControlLinearT3()
         {
             //let's cycle equals 3 T=3
@@ -426,36 +395,29 @@ namespace Conway
             if (isFirstLaunch)
             {
                 N1 = 0;
-                Cell = new List<decimal[,]>();
-                //var temp = SetInitial();
+                Cell = new List<decimal[,]>();                
                 Print(SetInit);
                 Cell.Add(SetInit);
-                //N1 = 0;
-
                 timer1.Enabled = true;
                 isFirstLaunch = false;
             }
             timer1.Enabled = true;
         }
-
         private void stopTimer_Click(object sender, EventArgs e)
         {
             funcSet.Enabled = true;
             timer1.Enabled = false;
         }
-
         private void Control_btn_Click(object sender, EventArgs e)
         {
             isControl = isControl ? false : true;
             Control_Label.Text = isControl ? "Control is on" : "Control is off";
             Control_Label.ForeColor = isControl ? Color.Green : Color.Red;
         }
-
         private void Form1_Resize(object sender, EventArgs e)
         {
             PanelForSettings_Position();
         }
-
         private void ExportPopDataBtn_Click(object sender, EventArgs e)
         {
             var statistic_dt = new System.Data.DataTable($"iteration_{iteration}");
@@ -481,6 +443,24 @@ namespace Conway
             wb.Worksheets.Add(statistic_dt).Columns().AdjustToContents();
 
             wb.SaveAs($"../../Uploads/logs/{iteration}_populationStatistic.xlsx");
+        }
+        public void PopulationCalculation(decimal [,] Data = null)
+        {
+            var data = Data ?? Cell[N1];
+            for (int i = 0; i < f.HeightImg; i++)
+                for (int j = 0; j < f.WidthImg; j++)
+                    population += data[i,j];
+
+            iteration += 1;
+            avrPopulation = population / (f.HeightImg * f.WidthImg);
+
+            populationStatistic.Add(avrPopulation);
+            tcyclePopulation = isControl ? Math.Abs(populationStatistic[N1 - 3] - populationStatistic[N1]) : 0;
+            if (isControl) { populationTCycleStatistic.Add(new populationTCycleStatisticVM { iteration = N1, population = tcyclePopulation }); }
+            PopulationLabel.Text = population.ToString();
+            AveragePopulationLbl.Text = avrPopulation.ToString();
+            TcycleCoincidenceLbl.Text = tcyclePopulation.ToString();
+            IterationLabel.Text = iteration.ToString();
         }
     }
 }
