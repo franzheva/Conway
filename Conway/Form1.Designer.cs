@@ -45,6 +45,7 @@
             this.TcycleCoincidenceLbl = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.ExportPopDataBtn = new System.Windows.Forms.Button();
+            this.Control_Label = new System.Windows.Forms.Label();
             this.PanelForSettings.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -140,6 +141,7 @@
             this.PanelForSettings.Controls.Add(this.label6);
             this.PanelForSettings.Controls.Add(this.AveragePopulationLbl);
             this.PanelForSettings.Controls.Add(this.label4);
+            this.PanelForSettings.Controls.Add(this.Control_Label);
             this.PanelForSettings.Controls.Add(this.Control_btn);
             this.PanelForSettings.Controls.Add(this.IterationLabel);
             this.PanelForSettings.Controls.Add(this.funcSet);
@@ -209,6 +211,16 @@
             this.ExportPopDataBtn.Text = "Export Population Data";
             this.ExportPopDataBtn.UseVisualStyleBackColor = true;
             this.ExportPopDataBtn.Click += new System.EventHandler(this.ExportPopDataBtn_Click);
+            // Control_Label
+            // 
+            this.Control_Label.AutoSize = true;
+            this.Control_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Control_Label.ForeColor = System.Drawing.Color.Red;
+            this.Control_Label.Location = new System.Drawing.Point(85, 27);
+            this.Control_Label.Name = "Control_Label";
+            this.Control_Label.Size = new System.Drawing.Size(94, 16);
+            this.Control_Label.TabIndex = 13;
+            this.Control_Label.Text = "Control is off";
             // 
             // Form1
             // 
@@ -246,6 +258,7 @@
         private System.Windows.Forms.Label AveragePopulationLbl;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button ExportPopDataBtn;
+        private System.Windows.Forms.Label Control_Label;
     }
 }
 
