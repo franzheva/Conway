@@ -33,7 +33,6 @@ namespace Conway
             ClearControlls();
             mainForm = form;
         }
-
         private void Function_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'cellularAutomataDataSet.Common_AnalyticalCA' table. You can move, or remove it, as needed.
@@ -48,7 +47,6 @@ namespace Conway
 
             ok.Enabled = false;
         }
-
         //Set function button
         private void button1_Click(object sender, EventArgs e)
         {
@@ -140,8 +138,7 @@ namespace Conway
             }
             ok.Enabled = false;
             ResetCBData();
-        }
-       
+        }       
         private void ok_Click(object sender, EventArgs e)
         {
             if (initFromImage)
@@ -154,29 +151,23 @@ namespace Conway
                 mainForm.SetInitial();
             }
            
-            mainForm.isFirstLaunch = true;
-            //mainForm.iteration = 0;
+            mainForm.isFirstLaunch = true;            
             this.Hide();
-
         }
-
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
         }
-
         public void ResetCBData()
         {            
             this.commonAnalyticalCABindingSource.ResetBindings(true);
             CalcFunctionCB.Refresh();
         }
-
         private void AddNewFunctionBtn_Click(object sender, EventArgs e)
         {
             AddNewFunction addFuncForm = new AddNewFunction(this);
             addFuncForm.Show();
         }
-
         private void UploadInit_btn_Click(object sender, EventArgs e)
         {
             var openFileDialog = new OpenFileDialog();
@@ -222,19 +213,16 @@ namespace Conway
                 initFromImage = true;
             }
         }
-
         private void FieldsizeHeighttb_MouseDown(object sender, MouseEventArgs e)
         {
             fieldsizeHeighttb.Text = "";
             fieldsizeHeighttb.ForeColor = Color.Black;
         }
-
         private void FieldsizeWidthtb_MouseDown(object sender, MouseEventArgs e)
         {
             fieldsizeWidthtb.Text = "";
             fieldsizeWidthtb.ForeColor = Color.Black;
         }
-
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (useCurrentAsSeparate.Checked)
