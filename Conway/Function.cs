@@ -36,7 +36,7 @@ namespace Conway
         private void Function_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'cellularAutomataDataSet.Common_AnalyticalCA' table. You can move, or remove it, as needed.
-           // this.common_AnalyticalCATableAdapter.Fill(this.cellularAutomataDataSet.Common_AnalyticalCA);
+            this.common_AnalyticalCATableAdapter.Fill(this.cellularAutomataDataSet.Common_AnalyticalCA);
             int x, y;
             for (int i = 0; i < 9; i++)
             {
@@ -70,7 +70,7 @@ namespace Conway
                     HeightImg = Convert.ToInt32(fieldsizeHeighttb.Text);
                     WidthImg = Convert.ToInt32(fieldsizeWidthtb.Text);
                     scale = Convert.ToInt32(scaletb.Text);
-                    allCellf = new AllCellsFunc(funcParsing.FunctionForAllParsed("return 4 * (1 - 0.05m * y) * x * (1 - x);"));//CalcFunctionCB.SelectedValue.ToString()));//
+                    allCellf = new AllCellsFunc(funcParsing.FunctionForAllParsed(CalcFunctionCB.SelectedValue.ToString()));//
 
 //                    Logistic    return 4 * x * (1 - x);
 //                    Tent    return 1 - Math.Abs(2 * x - 1);

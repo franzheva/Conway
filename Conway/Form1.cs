@@ -14,6 +14,9 @@ namespace Conway
         public int HeightField = 0; // field size  
         public int WidthField = 0;
         public int iteration = 0;
+        public int Tcycle = 30;
+        public decimal Tetta = 512.0m;
+            // decimal Tetta = 8.0m;//(decimal) Math.Pow(2,9);//1 / div * (Convert.ToDecimal(Math.Pow(2, Convert.ToDouble(Tcycle + 1))) - 1) + Epsilon; //4.0m;
         public decimal population = 0.0m;
         public decimal avrPopulation = 0.0m;
         public decimal tcyclePopulation = 0.0m;
@@ -159,8 +162,7 @@ namespace Conway
             for (int i = 0; i < f.HeightImg; i++)
                 for (int j = 0; j < f.WidthImg; j++)
                     SetInit[i, j] = (Convert.ToDecimal(rand.Next(100)) + 1) / 101;
-
-            iteration = 1;
+         
             PopulationCalculation(SetInit);
         }
         public void SetInitialFromImage(decimal [,] init)
@@ -174,8 +176,7 @@ namespace Conway
             for (int i = 0; i < f.HeightImg; i++)
                 for (int j = 0; j < f.WidthImg; j++)
                     SetInit[i, j] = init[i, j];
-
-            iteration = 1;
+            
             PopulationCalculation(SetInit);
         }       
         private void Print(decimal[,] A)
@@ -202,8 +203,8 @@ namespace Conway
             }
             
             pictureBox1.Image = myAutomataField;
-            
-            //myAutomataField.Save($"../../Uploads/logs/{iteration}_iteration.jpg");
+
+           // myAutomataField.Save($"../../Uploads/logs/{iteration}_iteration.jpg");
             //WriteLog(A);
         }
         private void funcSet_Click(object sender, EventArgs e)
@@ -222,7 +223,7 @@ namespace Conway
             
             if (isControl && N1 > 3)
             {
-                Cell.Add(FeedBackControlSemiLinear());                
+                Cell.Add(PredicativeControl());                
             }
             else
             {
@@ -236,12 +237,11 @@ namespace Conway
         public decimal[,] PredicativeControl()
         {
             //let's cycle equals 2 T=2
-
+            Tetta = 4.15m*(decimal)Math.Pow(10,7);//(decimal) Math.Pow(2,9);
             HeightField = f.HeightImg;
             WidthField = f.WidthImg;
             //int CAsize = f.fieldSize;
-            int Tcycle = 3; decimal div = 3.0m; decimal Epsilon = 0.000000000001m;
-            decimal Tetta = 8.0m;//1 / div * (Convert.ToDecimal(Math.Pow(2, Convert.ToDouble(Tcycle + 1))) - 1) + Epsilon; //4.0m;
+            decimal div = 3.0m; decimal Epsilon = 0.000000000001m;           
             decimal a1 = Tetta / (1 + Tetta); decimal a2 = 1 / (1 + Tetta);
             decimal[,] Xn_predicative = new decimal[HeightField, WidthField];
             decimal[,] Xn_predicativeTemporary = Cell[N1];
@@ -306,31 +306,80 @@ namespace Conway
         }
         public decimal[,] FeedBackControlSemiLinear()
         {
-            //let's cycle equals 2 T=2
-            var Xn = Cell[N1];
-            var Xn_0t_1 = Cell[N1-2];
+            //for nonlinear part T=9
+            var X_nonL = new List<decimal[,]>();
+            var X_L = new List<decimal[,]>();
+            var optCoeff = new List<decimal>();
 
-            var Xn_1 = Cell[N1 - 3];
-            var Xn_t_1 = Cell[N1 - 5];
+            for (int i = 1; i <= 10; i++)
+            {
+                X_nonL.Add(Cell[N1 - i * Tcycle+Tcycle]);
+                X_L.Add(Cell[N1 - i * Tcycle + 1]);
+            }
 
-            var T = 3.0m; var gamma = 0.45m;
-            var a1 = (T + 1) / (T + 2); var a2 = 1 / (T + 2);           
+            optCoeff.Add(0.6327m);
+            optCoeff.Add(0.1211m);
+            optCoeff.Add(0.0676m);
+            optCoeff.Add(0.0466m);
+            optCoeff.Add(0.0354m);
+            optCoeff.Add(0.0284m);
+            optCoeff.Add(0.0237m);
+            optCoeff.Add(0.02m);
+            optCoeff.Add(0.0166m);
+            optCoeff.Add(0.0079m);
+
+            //var Xn = Cell[N1];
+            //var Xn_1 = Cell[N1 - 1* Tcycle];
+            //var Xn_2 = Cell[N1 - 2* Tcycle];
+            //var Xn_3 = Cell[N1 - 3* Tcycle];
+            //var Xn_4 = Cell[N1 - 4* Tcycle];
+
+            ////for linear part
+            //var Xn_0t_1 = Cell[N1-1* Tcycle+1];            
+            //var Xn_t_1 = Cell[N1 - 2 * Tcycle + 1];
+            //var Xn_2t_1 = Cell[N1 - 3 * Tcycle + 1];
+            //var Xn_3t_1 = Cell[N1 - 4 * Tcycle + 1];
+            //var Xn_4t_1 = Cell[N1 - 5 * Tcycle + 1];
+
+            //optimal coefficients
+            var a1 = 0.7532m;var a2 = 0.1164m;var a3 = 0.0683m;var a4 = 0.0416m;var a5 = 0.0205m;
+
+            var gamma = 0.1m; var div = 19.0m;//var T = 3.0m;
+            //var a1 = (T + 1) / (T + 2); var a2 = 1 / (T + 2);           
 
             HeightField = f.HeightImg;
             WidthField = f.WidthImg;            
 
             var Xn_average = new decimal[HeightField, WidthField];
+           
             var Xn_controled = new decimal[HeightField, WidthField];
+            
             for (int i = 0; i < HeightField; i++)
                 for (int j = 0; j < WidthField; j++)
                 {
-                    Xn_average[i, j] = a1 * Xn[i, j] + a2 * Xn_1[i, j];
+                    for (int k = 0; k < 10; k++)
+                        Xn_average[i, j] += optCoeff[k] * X_nonL[k][i,j]; //a1 * Xn[i, j] + a2 * Xn_1[i, j]+a3 * Xn_2[i, j] + a4 * Xn_3[i, j] + a5 * Xn_4[i, j];
                 }
+
+            var Xl_average = new decimal[HeightField, WidthField];
+
+            for (int i = 0; i < HeightField; i++)
+                for (int j = 0; j < WidthField; j++)
+                {
+                    for (int k = 0; k < 9; k++)
+                        Xl_average[i, j] += 2 / div * X_L[k][i, j];
+                    Xl_average[i, j] += 1 / div * X_L[9][i, j];
+                }
+
             var temp = Life(Xn_average);
 
             for (int i = 0; i < HeightField; i++)
                 for (int j = 0; j < WidthField; j++)
-                    Xn_controled[i, j] = (1 - gamma) * temp[i, j] + gamma * (0.5m * Xn_0t_1[i,j] + 0.5m * Xn_t_1[i, j]);
+                {                
+
+                    Xn_controled[i, j] = (1 - gamma) * temp[i, j] + gamma * Xl_average[i,j];
+                }
+
             return Xn_controled;
         }
         public decimal[,] FeedBackControlLinearT3()
@@ -354,6 +403,7 @@ namespace Conway
                 }           
             return Life(Xn_average);
         }
+       
         public void WriteLog(decimal[,] logArray)
         {
             var CA_dt = new System.Data.DataTable($"iteration_{iteration}");
@@ -447,15 +497,23 @@ namespace Conway
         public void PopulationCalculation(decimal [,] Data = null)
         {
             var data = Data ?? Cell[N1];
+            var dataTcycle = Data ?? (N1 > Tcycle ? Cell[N1 - Tcycle] : null);
+
+
             for (int i = 0; i < f.HeightImg; i++)
                 for (int j = 0; j < f.WidthImg; j++)
                     population += data[i,j];
 
+            for (int i = 0; i < f.HeightImg; i++)
+                for (int j = 0; j < f.WidthImg; j++)
+                    tcyclePopulation += N1 > Tcycle ? Math.Abs(data[i, j] - dataTcycle[i, j]) : 0;
+
             iteration += 1;
             avrPopulation = population / (f.HeightImg * f.WidthImg);
+            tcyclePopulation = tcyclePopulation / (f.HeightImg * f.WidthImg);
 
             populationStatistic.Add(avrPopulation);
-            tcyclePopulation = isControl ? Math.Abs(populationStatistic[N1 - 3] - populationStatistic[N1]) : 0;
+          //  tcyclePopulation = N1 > Tcycle ? Math.Abs(populationStatistic[N1 - Tcycle] - populationStatistic[N1]) : 0;
             if (isControl) { populationTCycleStatistic.Add(new populationTCycleStatisticVM { iteration = N1, population = tcyclePopulation }); }
             PopulationLabel.Text = population.ToString();
             AveragePopulationLbl.Text = avrPopulation.ToString();
