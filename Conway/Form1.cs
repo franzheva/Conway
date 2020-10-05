@@ -16,18 +16,18 @@ namespace Conway
         public int iteration = 0;
         public int Tcycle = 30;
         public decimal Tetta = 512.0m;
-            // decimal Tetta = 8.0m;//(decimal) Math.Pow(2,9);//1 / div * (Convert.ToDecimal(Math.Pow(2, Convert.ToDouble(Tcycle + 1))) - 1) + Epsilon; //4.0m;
-        public decimal population = 0.0m;
-        public decimal avrPopulation = 0.0m;
-        public decimal tcyclePopulation = 0.0m;
-        public List<decimal> populationStatistic = new List<decimal>();
-        public List<populationTCycleStatisticVM> populationTCycleStatistic = new List<populationTCycleStatisticVM>();
+           
+        //public decimal population = 0.0m;
+        //public decimal avrPopulation = 0.0m;
+        //public decimal tcyclePopulation = 0.0m;
+        //public List<decimal> populationStatistic = new List<decimal>();
+        //public List<populationTCycleStatisticVM> populationTCycleStatistic = new List<populationTCycleStatisticVM>();
         Function f;
         public int N1 = 0;        
 
-        ControlSettings cs = new ControlSettings();
-        private List<decimal[,]> Cell;
-        decimal[,] SetInit;
+       // ControlSettings cs = new ControlSettings();
+        private List<CellStateVectorVM[,]> Cell;
+        CellStateVectorVM[,] SetInit;
 
         public bool isFirstLaunch = true;
 
@@ -51,27 +51,57 @@ namespace Conway
             DrawingPanel.Height = this.Height - PanelForSettings.Height;
 
         }
-        public decimal[,] Life(decimal[,] ArrayStart)
+        public CellStateVectorVM[,] Epidemia(CellStateVectorVM[,] ArrayStart)
         {
             //Algorithm of Cellular Automata Game 2D
             HeightField = f.HeightImg;
             WidthField = f.WidthImg;
-            decimal[,] ret = new decimal[HeightField, WidthField];
-            decimal[] inF = f.innerParameters;           
-            decimal incode = 0;            
-            decimal[] weightCoefficient = new decimal[inF.Length];
+            //var ret = new CellStateVectorVM[HeightField, WidthField];
+            //decimal[] inF = f.innerParameters;
+            //decimal incode = 0;
+            //decimal[] weightCoefficient = new decimal[inF.Length];
+            //var retI = new decimal[HeightField, WidthField];
+            //var retS = new decimal[HeightField, WidthField];
+            //var retR = new decimal[HeightField, WidthField];
 
-            for (int i = 0; i < inF.Length; i++)
-                incode += inF[i];
+            //for (int i = 0; i < inF.Length; i++)
+            //    incode += inF[i];
 
-            for (int i = 0; i < inF.Length; i++)
-                weightCoefficient[i] = inF[i]/incode;
+            //for (int i = 0; i < inF.Length; i++)
+            //    weightCoefficient[i] = inF[i] / incode;
+
+            var epidemiaRecalcStart = new CellStateVectorVM[HeightField, WidthField];
 
             for (int i = 0; i < HeightField; i++)
                 for (int j = 0; j < WidthField; j++)
-                    ret[i, j] = ArrayRecalculated(i, j, weightCoefficient, ArrayStart);
+                {
+                    epidemiaRecalcStart[i, j] = new CellStateVectorVM()
+                    {
+                        Infected = (1 - f.epsilon) * ArrayStart[i, j].Infected + f.nu * ArrayStart[i, j].Susceptible * ArrayStart[i, j].Infected,
+                        Susceptible = ArrayStart[i, j].Susceptible - f.omega*ArrayStart[i,j].Susceptible - f.nu * ArrayStart[i, j].Susceptible * ArrayStart[i, j].Infected,
+                        Recovered = ArrayStart[i, j].Recovered + f.epsilon * ArrayStart[i, j].Infected +f.omega* ArrayStart[i, j].Susceptible
+                    };
+                    //retI[i, j] = epidemiaRecalcStart[i, j].Infected;
+                    //retS[i, j] = epidemiaRecalcStart[i, j].Susceptible;
+                    //retR[i, j] = epidemiaRecalcStart[i, j].Recovered;
+                }
+            //for (int i = 0; i < HeightField; i++)
+            //    for (int j = 0; j < WidthField; j++)
+            //    {
+            //        retI[i, j] = ArrayRecalculated(i, j, weightCoefficient, retI);
+            //        retS[i, j] = ArrayRecalculated(i, j, weightCoefficient, retS);
+            //        retR[i, j] = ArrayRecalculated(i, j, weightCoefficient, retR);
+            //    }
+            //for (int i = 0; i < HeightField; i++)
+            //    for (int j = 0; j < WidthField; j++)
+            //        ret[i, j] = new CellStateVectorVM()
+            //        {
+            //            Infected = retI[i, j],
+            //            Susceptible = retS[i, j],
+            //            Recovered = retR[i, j]
+            //        };
 
-            return ret;
+                    return epidemiaRecalcStart;
         }       
         public decimal ArrayRecalculated(int i, int j, decimal [] innerCode, decimal[,] array)
         {
@@ -97,93 +127,50 @@ namespace Conway
         }       
         public void SetInitial()
         {
-            population = 0.0m;
-            avrPopulation = 0.0m;
-            tcyclePopulation = 0.0m;
-            populationStatistic = new List<decimal>();
-            populationTCycleStatistic = new List<populationTCycleStatisticVM>();
-            SetInit = new decimal[f.HeightImg, f.WidthImg];
+            //population = 0.0m;
+            //avrPopulation = 0.0m;
+            //tcyclePopulation = 0.0m;
+            //populationStatistic = new List<decimal>();
+            //populationTCycleStatistic = new List<populationTCycleStatisticVM>();
+            SetInit = new CellStateVectorVM[f.HeightImg, f.WidthImg];
             Random rand = new Random();
-            int x, x1, x2, y, y1, y2;
-            //case 1
-            //for (int i = 0; i < f.HeightImg * f.WidthImg; i++)
-            //{
-            //    x1 = rand.Next(f.HeightImg);
-            //    x2 = rand.Next(f.HeightImg);
-            //    x = (x1 + x2) / 2;
-            //    y1 = rand.Next(f.WidthImg);
-            //    y2 = rand.Next(f.WidthImg);
-            //    y = (y1 + y2) / 2;
-            //    SetInit[x, y] = Convert.ToDecimal(rand.Next(100)) / 100;
-
-            //}
-
-            // case 2
-
-            // планер в игре Жизнь
-            //SetInit[0, 1] = 1;
-            //SetInit[1, 2] = 1;
-            //SetInit[2, 0] = 1;
-            //SetInit[2, 1] = 1;
-            //SetInit[2, 2] = 1;
-            //Print(SetInit);
-
-            //return SetInit;
-            //SetInit[0, 0] = 0.1m;
-            //SetInit[0, 1] = 0.4m;
-            //SetInit[0, 2] = 0.8m;
-            //SetInit[0, 3] = 0.5m;
-            //SetInit[0, 4] = 0.9m;
-
-            //SetInit[1, 0] = 0.1m;
-            //SetInit[1, 1] = 0.4m;
-            //SetInit[1, 2] = 0.3m;
-            //SetInit[1, 3] = 0.5m;
-            //SetInit[1, 4] = 0.1m;
-
-            //SetInit[2, 0] = 0.1m;
-            //SetInit[2, 1] = 0.4m;
-            //SetInit[2, 2] = 0.3m;
-            //SetInit[2, 3] = 0.5m;
-            //SetInit[2, 4] = 0.1m;
-
-            //SetInit[3, 0] = 0.1m;
-            //SetInit[3, 1] = 0.4m;
-            //SetInit[3, 2] = 0.3m;
-            //SetInit[3, 3] = 0.5m;
-            //SetInit[3, 4] = 0.6m;
-
-            //SetInit[4, 0] = 0.1m;
-            //SetInit[4, 1] = 0.4m;
-            //SetInit[4, 2] = 0.3m;
-            //SetInit[4, 3] = 0.5m;
-            //SetInit[4, 4] = 0.6m;
 
             for (int i = 0; i < f.HeightImg; i++)
                 for (int j = 0; j < f.WidthImg; j++)
-                    SetInit[i, j] = (Convert.ToDecimal(rand.Next(100)) + 1) / 101;
+                {
+                    var S = (Convert.ToDecimal(rand.Next(100)) + 1) / 101;
+                    var I = (1 - S) / (Convert.ToDecimal(rand.Next(100)) + 1);
+                    SetInit[i, j] = new CellStateVectorVM()
+                    {                        
+                        Susceptible = S,
+                        Infected = I,
+                        Recovered = 1-(S+I)
+                    };
+                }
+                    
          
-            PopulationCalculation(SetInit);
+           // PopulationCalculation(SetInit);
         }
-        public void SetInitialFromImage(decimal [,] init)
+        public void SetInitialFromImage(CellStateVectorVM [,] init)
         {
-            population = 0.0m;
-            avrPopulation = 0.0m;
-            tcyclePopulation = 0.0m;
-            populationStatistic = new List<decimal>();
-            populationTCycleStatistic = new List<populationTCycleStatisticVM>();
-            SetInit = new decimal[f.HeightImg, f.WidthImg];
+            //population = 0.0m;
+            //avrPopulation = 0.0m;
+            //tcyclePopulation = 0.0m;
+            //populationStatistic = new List<decimal>();
+            //populationTCycleStatistic = new List<populationTCycleStatisticVM>();
+            SetInit = new CellStateVectorVM[f.HeightImg, f.WidthImg];
             for (int i = 0; i < f.HeightImg; i++)
-                for (int j = 0; j < f.WidthImg; j++)
+                for (int j = 0; j < f.WidthImg; j++)                
                     SetInit[i, j] = init[i, j];
+                
             
-            PopulationCalculation(SetInit);
+           // PopulationCalculation(SetInit);
         }       
-        private void Print(decimal[,] A)
+        private void Print(CellStateVectorVM[,] A)
         {
             CreateBitmapAtRuntime(A);
         }        
-        public void CreateBitmapAtRuntime(decimal[,] A)
+        public void CreateBitmapAtRuntime(CellStateVectorVM[,] A)
         {
             HeightField = f.HeightImg;
             WidthField = f.WidthImg;            
@@ -197,8 +184,11 @@ namespace Conway
             {
                 for (int i = 0; i < HeightField; i++)
                 {
-                    int col = Convert.ToInt32((1 - A[i, j]) * 255); //Math.Abs(1 - A[j, i]) old version
-                    flagGraphics.FillRectangle(new SolidBrush(Color.FromArgb(col, col, col)), j * scale, i * scale, scale, scale); //(col, col, col) try to (col, 0, 0)
+                    int colorOfSusceptible = Convert.ToInt32((1 - A[i, j].Susceptible) * 255);
+                    int colorOfInfected = Convert.ToInt32((1 - A[i, j].Infected) * 255);
+                    int colorOfRecovered = Convert.ToInt32((1 - A[i, j].Recovered) * 255);
+                    
+                    flagGraphics.FillRectangle(new SolidBrush(Color.FromArgb(colorOfSusceptible, colorOfInfected, colorOfRecovered)), j * scale, i * scale, scale, scale); //(col, col, col) try to (col, 0, 0)
                 }
             }
             
@@ -217,235 +207,200 @@ namespace Conway
         {
             HeightField = f.HeightImg;
             WidthField = f.WidthImg;
-            population = 0.0m;
-            avrPopulation = 0.0m;
-            tcyclePopulation = 0.0m;       
+            //population = 0.0m;
+            //avrPopulation = 0.0m;
+            //tcyclePopulation = 0.0m;       
             
-            if (isControl && N1 > 3)
-            {
-                Cell.Add(PredicativeControl());                
-            }
-            else
-            {
-                Cell.Add(Life(Cell[N1]));
-            }
+            //if (isControl && N1 > 3)
+            //{
+            //    Cell.Add(PredicativeControl());                
+            //}
+            //else
+            //{
+                Cell.Add(Epidemia(Cell[N1]));
+            //}
             N1 += 1;
-            PopulationCalculation();
+            IterationLabel.Text = N1.ToString();
+            // PopulationCalculation();
             Print(Cell[N1]);
 
         }
-        public decimal[,] PredicativeControl()
-        {
-            //let's cycle equals 2 T=2
-            Tetta = 4.15m*(decimal)Math.Pow(10,7);//(decimal) Math.Pow(2,9);
-            HeightField = f.HeightImg;
-            WidthField = f.WidthImg;
-            //int CAsize = f.fieldSize;
-            decimal div = 3.0m; decimal Epsilon = 0.000000000001m;           
-            decimal a1 = Tetta / (1 + Tetta); decimal a2 = 1 / (1 + Tetta);
-            decimal[,] Xn_predicative = new decimal[HeightField, WidthField];
-            decimal[,] Xn_predicativeTemporary = Cell[N1];
-            decimal[,] Xn_controled = new decimal[HeightField, WidthField];
+        //public decimal[,] PredicativeControl()
+        //{
+        //    //let's cycle equals 2 T=2
+        //    Tetta = 4.15m*(decimal)Math.Pow(10,7);//(decimal) Math.Pow(2,9);
+        //    HeightField = f.HeightImg;
+        //    WidthField = f.WidthImg;
+        //    //int CAsize = f.fieldSize;
+        //    decimal div = 3.0m; decimal Epsilon = 0.000000000001m;           
+        //    decimal a1 = Tetta / (1 + Tetta); decimal a2 = 1 / (1 + Tetta);
+        //    decimal[,] Xn_predicative = new decimal[HeightField, WidthField];
+        //    decimal[,] Xn_predicativeTemporary = Cell[N1];
+        //    decimal[,] Xn_controled = new decimal[HeightField, WidthField];
 
-            //Calculating for predicative part of control
-            for (int p = 0; p < Tcycle; p++)
-            {
-                Xn_predicative = Life(Xn_predicativeTemporary);
-                Xn_predicativeTemporary = Xn_predicative;                              
-            }
-            //calculating control body for main function
+        //    //Calculating for predicative part of control
+        //    for (int p = 0; p < Tcycle; p++)
+        //    {
+        //        Xn_predicative = Life(Xn_predicativeTemporary);
+        //        Xn_predicativeTemporary = Xn_predicative;                              
+        //    }
+        //    //calculating control body for main function
 
-            for (int i = 0; i < HeightField; i++)
-                for (int j = 0; j < WidthField; j++)
-                {                   
-                   Xn_controled[i, j] = a1 * Cell[N1][i, j] + a2 * Xn_predicative[i, j];                  
-                }
-            return Life(Xn_controled);
-        }
-        public decimal[,] FeedBackControl()
-        {
-            //let's cycle equals 2 T=2
-            var Xn = Life(Cell[N1]);
-            var Xn_1 = Life(Cell[N1-1]);
+        //    for (int i = 0; i < HeightField; i++)
+        //        for (int j = 0; j < WidthField; j++)
+        //        {                   
+        //           Xn_controled[i, j] = a1 * Cell[N1][i, j] + a2 * Xn_predicative[i, j];                  
+        //        }
+        //    return Life(Xn_controled);
+        //}
+        //public decimal[,] FeedBackControl()
+        //{
+        //    //let's cycle equals 2 T=2
+        //    var Xn = Life(Cell[N1]);
+        //    var Xn_1 = Life(Cell[N1-1]);
            
-            HeightField = f.HeightImg;
-            WidthField = f.WidthImg;
+        //    HeightField = f.HeightImg;
+        //    WidthField = f.WidthImg;
 
-            decimal div = 3.0m;             
-            decimal a1 = 2 / div; decimal a2 = 1 / div;
+        //    decimal div = 3.0m;             
+        //    decimal a1 = 2 / div; decimal a2 = 1 / div;
             
-            decimal[,] Xn_controled = new decimal[HeightField, WidthField];            
+        //    decimal[,] Xn_controled = new decimal[HeightField, WidthField];            
             
-            for (int i = 0; i < HeightField; i++)
-                for (int j = 0; j < WidthField; j++)
-                {
-                    Xn_controled[i, j] = a1 * Xn[i, j] + a2 * Xn_1[i, j];
-                }
+        //    for (int i = 0; i < HeightField; i++)
+        //        for (int j = 0; j < WidthField; j++)
+        //        {
+        //            Xn_controled[i, j] = a1 * Xn[i, j] + a2 * Xn_1[i, j];
+        //        }
           
-            return Xn_controled;
-        }
-        public decimal[,] FeedBackControlLinear()
-        {
-            //let's cycle equals 2 T=2
-            var Xn = Cell[N1];
-            var Xn_1 = Cell[N1 - 2];
-            var Xn_2 = Cell[N1 - 4];
-            HeightField = f.HeightImg;
-            WidthField = f.WidthImg;
+        //    return Xn_controled;
+        //}
+        //public decimal[,] FeedBackControlLinear()
+        //{
+        //    //let's cycle equals 2 T=2
+        //    var Xn = Cell[N1];
+        //    var Xn_1 = Cell[N1 - 2];
+        //    var Xn_2 = Cell[N1 - 4];
+        //    HeightField = f.HeightImg;
+        //    WidthField = f.WidthImg;
             
-            decimal a1 = 0.56m; decimal a2 = 0.33m; decimal a3 = 0.11m;
+        //    decimal a1 = 0.56m; decimal a2 = 0.33m; decimal a3 = 0.11m;
             
-            decimal[,] Xn_average = new decimal[HeightField, WidthField];
+        //    decimal[,] Xn_average = new decimal[HeightField, WidthField];
 
-            for (int i = 0; i < HeightField; i++)
-                for (int j = 0; j < WidthField; j++)
-                {
-                    Xn_average[i, j] = a1 * Xn[i, j] + a2 * Xn_1[i, j]+a3*Xn_2[i,j];
-                }           
-            return Life(Xn_average);
-        }
-        public decimal[,] FeedBackControlSemiLinear()
-        {
-            //for nonlinear part T=9
-            var X_nonL = new List<decimal[,]>();
-            var X_L = new List<decimal[,]>();
-            var optCoeff = new List<decimal>();
+        //    for (int i = 0; i < HeightField; i++)
+        //        for (int j = 0; j < WidthField; j++)
+        //        {
+        //            Xn_average[i, j] = a1 * Xn[i, j] + a2 * Xn_1[i, j]+a3*Xn_2[i,j];
+        //        }           
+        //    return Life(Xn_average);
+        //}
+        //public decimal[,] FeedBackControlSemiLinear()
+        //{
+        //    //for nonlinear part T=9
+        //    var X_nonL = new List<decimal[,]>();
+        //    var X_L = new List<decimal[,]>();
+        //    var optCoeff = new List<decimal>();
 
-            for (int i = 1; i <= 10; i++)
-            {
-                X_nonL.Add(Cell[N1 - i * Tcycle+Tcycle]);
-                X_L.Add(Cell[N1 - i * Tcycle + 1]);
-            }
+        //    for (int i = 1; i <= 10; i++)
+        //    {
+        //        X_nonL.Add(Cell[N1 - i * Tcycle+Tcycle]);
+        //        X_L.Add(Cell[N1 - i * Tcycle + 1]);
+        //    }
 
-            optCoeff.Add(0.6327m);
-            optCoeff.Add(0.1211m);
-            optCoeff.Add(0.0676m);
-            optCoeff.Add(0.0466m);
-            optCoeff.Add(0.0354m);
-            optCoeff.Add(0.0284m);
-            optCoeff.Add(0.0237m);
-            optCoeff.Add(0.02m);
-            optCoeff.Add(0.0166m);
-            optCoeff.Add(0.0079m);
+        //    optCoeff.Add(0.6327m);
+        //    optCoeff.Add(0.1211m);
+        //    optCoeff.Add(0.0676m);
+        //    optCoeff.Add(0.0466m);
+        //    optCoeff.Add(0.0354m);
+        //    optCoeff.Add(0.0284m);
+        //    optCoeff.Add(0.0237m);
+        //    optCoeff.Add(0.02m);
+        //    optCoeff.Add(0.0166m);
+        //    optCoeff.Add(0.0079m);
 
-            //var Xn = Cell[N1];
-            //var Xn_1 = Cell[N1 - 1* Tcycle];
-            //var Xn_2 = Cell[N1 - 2* Tcycle];
-            //var Xn_3 = Cell[N1 - 3* Tcycle];
-            //var Xn_4 = Cell[N1 - 4* Tcycle];
+        //    //var Xn = Cell[N1];
+        //    //var Xn_1 = Cell[N1 - 1* Tcycle];
+        //    //var Xn_2 = Cell[N1 - 2* Tcycle];
+        //    //var Xn_3 = Cell[N1 - 3* Tcycle];
+        //    //var Xn_4 = Cell[N1 - 4* Tcycle];
 
-            ////for linear part
-            //var Xn_0t_1 = Cell[N1-1* Tcycle+1];            
-            //var Xn_t_1 = Cell[N1 - 2 * Tcycle + 1];
-            //var Xn_2t_1 = Cell[N1 - 3 * Tcycle + 1];
-            //var Xn_3t_1 = Cell[N1 - 4 * Tcycle + 1];
-            //var Xn_4t_1 = Cell[N1 - 5 * Tcycle + 1];
+        //    ////for linear part
+        //    //var Xn_0t_1 = Cell[N1-1* Tcycle+1];            
+        //    //var Xn_t_1 = Cell[N1 - 2 * Tcycle + 1];
+        //    //var Xn_2t_1 = Cell[N1 - 3 * Tcycle + 1];
+        //    //var Xn_3t_1 = Cell[N1 - 4 * Tcycle + 1];
+        //    //var Xn_4t_1 = Cell[N1 - 5 * Tcycle + 1];
 
-            //optimal coefficients
-            var a1 = 0.7532m;var a2 = 0.1164m;var a3 = 0.0683m;var a4 = 0.0416m;var a5 = 0.0205m;
+        //    //optimal coefficients
+        //    var a1 = 0.7532m;var a2 = 0.1164m;var a3 = 0.0683m;var a4 = 0.0416m;var a5 = 0.0205m;
 
-            var gamma = 0.1m; var div = 19.0m;//var T = 3.0m;
-            //var a1 = (T + 1) / (T + 2); var a2 = 1 / (T + 2);           
+        //    var gamma = 0.1m; var div = 19.0m;//var T = 3.0m;
+        //    //var a1 = (T + 1) / (T + 2); var a2 = 1 / (T + 2);           
 
-            HeightField = f.HeightImg;
-            WidthField = f.WidthImg;            
+        //    HeightField = f.HeightImg;
+        //    WidthField = f.WidthImg;            
 
-            var Xn_average = new decimal[HeightField, WidthField];
+        //    var Xn_average = new decimal[HeightField, WidthField];
            
-            var Xn_controled = new decimal[HeightField, WidthField];
+        //    var Xn_controled = new decimal[HeightField, WidthField];
             
-            for (int i = 0; i < HeightField; i++)
-                for (int j = 0; j < WidthField; j++)
-                {
-                    for (int k = 0; k < 10; k++)
-                        Xn_average[i, j] += optCoeff[k] * X_nonL[k][i,j]; //a1 * Xn[i, j] + a2 * Xn_1[i, j]+a3 * Xn_2[i, j] + a4 * Xn_3[i, j] + a5 * Xn_4[i, j];
-                }
+        //    for (int i = 0; i < HeightField; i++)
+        //        for (int j = 0; j < WidthField; j++)
+        //        {
+        //            for (int k = 0; k < 10; k++)
+        //                Xn_average[i, j] += optCoeff[k] * X_nonL[k][i,j]; //a1 * Xn[i, j] + a2 * Xn_1[i, j]+a3 * Xn_2[i, j] + a4 * Xn_3[i, j] + a5 * Xn_4[i, j];
+        //        }
 
-            var Xl_average = new decimal[HeightField, WidthField];
+        //    var Xl_average = new decimal[HeightField, WidthField];
 
-            for (int i = 0; i < HeightField; i++)
-                for (int j = 0; j < WidthField; j++)
-                {
-                    for (int k = 0; k < 9; k++)
-                        Xl_average[i, j] += 2 / div * X_L[k][i, j];
-                    Xl_average[i, j] += 1 / div * X_L[9][i, j];
-                }
+        //    for (int i = 0; i < HeightField; i++)
+        //        for (int j = 0; j < WidthField; j++)
+        //        {
+        //            for (int k = 0; k < 9; k++)
+        //                Xl_average[i, j] += 2 / div * X_L[k][i, j];
+        //            Xl_average[i, j] += 1 / div * X_L[9][i, j];
+        //        }
 
-            var temp = Life(Xn_average);
+        //    var temp = Life(Xn_average);
 
-            for (int i = 0; i < HeightField; i++)
-                for (int j = 0; j < WidthField; j++)
-                {                
+        //    for (int i = 0; i < HeightField; i++)
+        //        for (int j = 0; j < WidthField; j++)
+        //        {                
 
-                    Xn_controled[i, j] = (1 - gamma) * temp[i, j] + gamma * Xl_average[i,j];
-                }
+        //            Xn_controled[i, j] = (1 - gamma) * temp[i, j] + gamma * Xl_average[i,j];
+        //        }
 
-            return Xn_controled;
-        }
-        public decimal[,] FeedBackControlLinearT3()
-        {
-            //let's cycle equals 3 T=3
-            var Xn = Cell[N1];
-            var Xn_1 = Cell[N1 - 3];
-            var Xn_2 = Cell[N1 - 6];
-            var Xn_3 = Cell[N1 - 9];
-            HeightField = f.HeightImg;
-            WidthField = f.WidthImg;
+        //    return Xn_controled;
+        //}
+        //public decimal[,] FeedBackControlLinearT3()
+        //{
+        //    //let's cycle equals 3 T=3
+        //    var Xn = Cell[N1];
+        //    var Xn_1 = Cell[N1 - 3];
+        //    var Xn_2 = Cell[N1 - 6];
+        //    var Xn_3 = Cell[N1 - 9];
+        //    HeightField = f.HeightImg;
+        //    WidthField = f.WidthImg;
 
-            decimal a1 = 0.639m; decimal a2 = 0.269m; decimal a3 = 0.092m; decimal a4 = 0.0m;
+        //    decimal a1 = 0.639m; decimal a2 = 0.269m; decimal a3 = 0.092m; decimal a4 = 0.0m;
 
-            decimal[,] Xn_average = new decimal[HeightField, WidthField];
+        //    decimal[,] Xn_average = new decimal[HeightField, WidthField];
 
-            for (int i = 0; i < HeightField; i++)
-                for (int j = 0; j < WidthField; j++)
-                {
-                    Xn_average[i, j] = a1 * Xn[i, j] + a2 * Xn_1[i, j] + a3 * Xn_2[i, j] + a4*Xn_3[i,j];
-                }           
-            return Life(Xn_average);
-        }
-       
-        public void WriteLog(decimal[,] logArray)
-        {
-            var CA_dt = new System.Data.DataTable($"iteration_{iteration}");
-            for (int i = 0; i < WidthField; i++)
-                CA_dt.Columns.Add();
-            for (int i = 0; i < HeightField; i++)
-            {
-                var dr = CA_dt.NewRow();
-                //dr[0] = i;
-                for (int j = 0; j < WidthField; j++)
-                    dr[j] = logArray[i, j];
-                CA_dt.Rows.Add(dr);
-            }
-
-            var pop_row = CA_dt.NewRow();
-            pop_row[0] = "Population:";
-            pop_row[1] = population;
-            CA_dt.Rows.Add(pop_row);
-            var wb = new XLWorkbook();
-            wb.Worksheets.Add(CA_dt).Columns().AdjustToContents();
-            
-            wb.SaveAs($"../../Uploads/logs/{iteration}_iteration.xlsx");
-        }
-
-        //Practical implementation todo:
-        public decimal PictureCoder(decimal X0)
-        {
-            decimal alfa = 2 - 1 / X0;
-            if (X0 >= 0 && X0 < alfa)
-                return X0 / alfa;
-            else if (X0 >= alfa && X0 <= 1)
-                return (1 - X0) / (1 - alfa);
-            else
-                return 0;
-        }
+        //    for (int i = 0; i < HeightField; i++)
+        //        for (int j = 0; j < WidthField; j++)
+        //        {
+        //            Xn_average[i, j] = a1 * Xn[i, j] + a2 * Xn_1[i, j] + a3 * Xn_2[i, j] + a4*Xn_3[i,j];
+        //        }           
+        //    return Life(Xn_average);
+        //} 
         private void startTimerButton_Click(object sender, EventArgs e)
         {
             funcSet.Enabled = false;
             if (isFirstLaunch)
             {
                 N1 = 0;
-                Cell = new List<decimal[,]>();                
+                Cell = new List<CellStateVectorVM[,]>();                
                 Print(SetInit);
                 Cell.Add(SetInit);
                 timer1.Enabled = true;
@@ -468,57 +423,80 @@ namespace Conway
         {
             PanelForSettings_Position();
         }
-        private void ExportPopDataBtn_Click(object sender, EventArgs e)
-        {
-            var statistic_dt = new System.Data.DataTable($"iteration_{iteration}");
-            var Columns = new string[] { "Iteration", "Average Population", "_", "Iteration_", "Tcycle coincides" };
-            for (int i = 0; i < 5; i++)
-             statistic_dt.Columns.Add(Columns[i]);                
+        //public void WriteLog(decimal[,] logArray)
+        //{
+        //    var CA_dt = new System.Data.DataTable($"iteration_{iteration}");
+        //    for (int i = 0; i < WidthField; i++)
+        //        CA_dt.Columns.Add();
+        //    for (int i = 0; i < HeightField; i++)
+        //    {
+        //        var dr = CA_dt.NewRow();
+        //        //dr[0] = i;
+        //        for (int j = 0; j < WidthField; j++)
+        //            dr[j] = logArray[i, j];
+        //        CA_dt.Rows.Add(dr);
+        //    }
 
-            for (int i = 0; i < N1; i++)
-            {
-                var dr = statistic_dt.NewRow();
-                //dr[0] = i;
+        //    var pop_row = CA_dt.NewRow();
+        //    pop_row[0] = "Population:";
+        //    pop_row[1] = population;
+        //    CA_dt.Rows.Add(pop_row);
+        //    var wb = new XLWorkbook();
+        //    wb.Worksheets.Add(CA_dt).Columns().AdjustToContents();
 
-                dr[0] = i;
-                dr[1] = populationStatistic[i];
-                dr[2] = "";
-                dr[3] = populationTCycleStatistic.Count - i <= 0 ? "" : populationTCycleStatistic[i].iteration.ToString();
-                dr[4] = populationTCycleStatistic.Count-i<=0 ? "": populationTCycleStatistic[i].population.ToString();
+        //    wb.SaveAs($"../../Uploads/logs/{iteration}_iteration.xlsx");
+        //}
+        //private void ExportPopDataBtn_Click(object sender, EventArgs e)
+        //{
+        //    var statistic_dt = new System.Data.DataTable($"iteration_{iteration}");
+        //    var Columns = new string[] { "Iteration", "Average Population", "_", "Iteration_", "Tcycle coincides" };
+        //    for (int i = 0; i < 5; i++)
+        //     statistic_dt.Columns.Add(Columns[i]);                
 
-                statistic_dt.Rows.Add(dr);
-            }
-           
-            var wb = new XLWorkbook();
-            wb.Worksheets.Add(statistic_dt).Columns().AdjustToContents();
+        //    for (int i = 0; i < N1; i++)
+        //    {
+        //        var dr = statistic_dt.NewRow();
+        //        //dr[0] = i;
 
-            wb.SaveAs($"../../Uploads/logs/{iteration}_populationStatistic.xlsx");
-        }
-        public void PopulationCalculation(decimal [,] Data = null)
-        {
-            var data = Data ?? Cell[N1];
-            var dataTcycle = Data ?? (N1 > Tcycle ? Cell[N1 - Tcycle] : null);
+        //        dr[0] = i;
+        //        dr[1] = populationStatistic[i];
+        //        dr[2] = "";
+        //        dr[3] = populationTCycleStatistic.Count - i <= 0 ? "" : populationTCycleStatistic[i].iteration.ToString();
+        //        dr[4] = populationTCycleStatistic.Count-i<=0 ? "": populationTCycleStatistic[i].population.ToString();
+
+        //        statistic_dt.Rows.Add(dr);
+        //    }
+
+        //    var wb = new XLWorkbook();
+        //    wb.Worksheets.Add(statistic_dt).Columns().AdjustToContents();
+
+        //    wb.SaveAs($"../../Uploads/logs/{iteration}_populationStatistic.xlsx");
+        //}
+        //public void PopulationCalculation(decimal [,] Data = null)
+        //{
+        //    var data = Data ?? Cell[N1];
+        //    var dataTcycle = Data ?? (N1 > Tcycle ? Cell[N1 - Tcycle] : null);
 
 
-            for (int i = 0; i < f.HeightImg; i++)
-                for (int j = 0; j < f.WidthImg; j++)
-                    population += data[i,j];
+        //    for (int i = 0; i < f.HeightImg; i++)
+        //        for (int j = 0; j < f.WidthImg; j++)
+        //            population += data[i,j];
 
-            for (int i = 0; i < f.HeightImg; i++)
-                for (int j = 0; j < f.WidthImg; j++)
-                    tcyclePopulation += N1 > Tcycle ? Math.Abs(data[i, j] - dataTcycle[i, j]) : 0;
+        //    for (int i = 0; i < f.HeightImg; i++)
+        //        for (int j = 0; j < f.WidthImg; j++)
+        //            tcyclePopulation += N1 > Tcycle ? Math.Abs(data[i, j] - dataTcycle[i, j]) : 0;
 
-            iteration += 1;
-            avrPopulation = population / (f.HeightImg * f.WidthImg);
-            tcyclePopulation = tcyclePopulation / (f.HeightImg * f.WidthImg);
+        //    iteration += 1;
+        //    avrPopulation = population / (f.HeightImg * f.WidthImg);
+        //    tcyclePopulation = tcyclePopulation / (f.HeightImg * f.WidthImg);
 
-            populationStatistic.Add(avrPopulation);
-          //  tcyclePopulation = N1 > Tcycle ? Math.Abs(populationStatistic[N1 - Tcycle] - populationStatistic[N1]) : 0;
-            if (isControl) { populationTCycleStatistic.Add(new populationTCycleStatisticVM { iteration = N1, population = tcyclePopulation }); }
-            PopulationLabel.Text = population.ToString();
-            AveragePopulationLbl.Text = avrPopulation.ToString();
-            TcycleCoincidenceLbl.Text = tcyclePopulation.ToString();
-            IterationLabel.Text = iteration.ToString();
-        }
+        //    populationStatistic.Add(avrPopulation);
+        //  //  tcyclePopulation = N1 > Tcycle ? Math.Abs(populationStatistic[N1 - Tcycle] - populationStatistic[N1]) : 0;
+        //    if (isControl) { populationTCycleStatistic.Add(new populationTCycleStatisticVM { iteration = N1, population = tcyclePopulation }); }
+        //    PopulationLabel.Text = population.ToString();
+        //    AveragePopulationLbl.Text = avrPopulation.ToString();
+        //    TcycleCoincidenceLbl.Text = tcyclePopulation.ToString();
+        //    IterationLabel.Text = iteration.ToString();
+        //}
     }
 }

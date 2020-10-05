@@ -39,13 +39,13 @@
             this.IterationLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.PanelForSettings = new System.Windows.Forms.Panel();
-            this.DrawingPanel = new System.Windows.Forms.Panel();
-            this.AveragePopulationLbl = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.ExportPopDataBtn = new System.Windows.Forms.Button();
             this.TcycleCoincidenceLbl = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.ExportPopDataBtn = new System.Windows.Forms.Button();
+            this.AveragePopulationLbl = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.Control_Label = new System.Windows.Forms.Label();
+            this.DrawingPanel = new System.Windows.Forms.Panel();
             this.PanelForSettings.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,6 +61,7 @@
             // 
             // timer1
             // 
+            this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // startTimerButton
@@ -155,32 +156,14 @@
             this.PanelForSettings.Size = new System.Drawing.Size(740, 75);
             this.PanelForSettings.TabIndex = 13;
             // 
-            // DrawingPanel
+            // ExportPopDataBtn
             // 
-            this.DrawingPanel.Location = new System.Drawing.Point(3, 81);
-            this.DrawingPanel.Name = "DrawingPanel";
-            this.DrawingPanel.Size = new System.Drawing.Size(740, 381);
-            this.DrawingPanel.TabIndex = 14;
-            // 
-            // AveragePopulationLbl
-            // 
-            this.AveragePopulationLbl.AutoSize = true;
-            this.AveragePopulationLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AveragePopulationLbl.Location = new System.Drawing.Point(500, 27);
-            this.AveragePopulationLbl.Name = "AveragePopulationLbl";
-            this.AveragePopulationLbl.Size = new System.Drawing.Size(15, 16);
-            this.AveragePopulationLbl.TabIndex = 14;
-            this.AveragePopulationLbl.Text = "0";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(370, 27);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(132, 16);
-            this.label4.TabIndex = 13;
-            this.label4.Text = "Average  population:";
+            this.ExportPopDataBtn.Location = new System.Drawing.Point(203, 36);
+            this.ExportPopDataBtn.Name = "ExportPopDataBtn";
+            this.ExportPopDataBtn.Size = new System.Drawing.Size(164, 23);
+            this.ExportPopDataBtn.TabIndex = 17;
+            this.ExportPopDataBtn.Text = "Export Population Data";
+            this.ExportPopDataBtn.UseVisualStyleBackColor = true;
             // 
             // TcycleCoincidenceLbl
             // 
@@ -202,15 +185,26 @@
             this.label6.TabIndex = 15;
             this.label6.Text = "T-cycle coincidence:";
             // 
-            // ExportPopDataBtn
+            // AveragePopulationLbl
             // 
-            this.ExportPopDataBtn.Location = new System.Drawing.Point(203, 36);
-            this.ExportPopDataBtn.Name = "ExportPopDataBtn";
-            this.ExportPopDataBtn.Size = new System.Drawing.Size(164, 23);
-            this.ExportPopDataBtn.TabIndex = 17;
-            this.ExportPopDataBtn.Text = "Export Population Data";
-            this.ExportPopDataBtn.UseVisualStyleBackColor = true;
-            this.ExportPopDataBtn.Click += new System.EventHandler(this.ExportPopDataBtn_Click);
+            this.AveragePopulationLbl.AutoSize = true;
+            this.AveragePopulationLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AveragePopulationLbl.Location = new System.Drawing.Point(500, 27);
+            this.AveragePopulationLbl.Name = "AveragePopulationLbl";
+            this.AveragePopulationLbl.Size = new System.Drawing.Size(15, 16);
+            this.AveragePopulationLbl.TabIndex = 14;
+            this.AveragePopulationLbl.Text = "0";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(370, 27);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(132, 16);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "Average  population:";
+            // 
             // Control_Label
             // 
             this.Control_Label.AutoSize = true;
@@ -221,6 +215,13 @@
             this.Control_Label.Size = new System.Drawing.Size(94, 16);
             this.Control_Label.TabIndex = 13;
             this.Control_Label.Text = "Control is off";
+            // 
+            // DrawingPanel
+            // 
+            this.DrawingPanel.Location = new System.Drawing.Point(3, 81);
+            this.DrawingPanel.Name = "DrawingPanel";
+            this.DrawingPanel.Size = new System.Drawing.Size(740, 381);
+            this.DrawingPanel.TabIndex = 14;
             // 
             // Form1
             // 

@@ -52,6 +52,12 @@
             this.UploadInit_btn = new System.Windows.Forms.Button();
             this.fieldsizeWidthtb = new System.Windows.Forms.TextBox();
             this.weightsLbl = new System.Windows.Forms.Label();
+            this.EpsilonTB = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.NuTB = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.OmegaTB = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.commonAnalyticalCABindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cellularAutomataDataSet)).BeginInit();
@@ -77,7 +83,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(365, 81);
             this.panel1.TabIndex = 1;
-            //
+            // 
             // useCurrentAsSeparate
             // 
             this.useCurrentAsSeparate.AutoSize = true;
@@ -91,7 +97,6 @@
             // 
             // AddNewFunctionBtn
             // 
-
             this.AddNewFunctionBtn.Location = new System.Drawing.Point(232, 12);
             this.AddNewFunctionBtn.Name = "AddNewFunctionBtn";
             this.AddNewFunctionBtn.Size = new System.Drawing.Size(75, 37);
@@ -263,11 +268,65 @@
             this.weightsLbl.Size = new System.Drawing.Size(0, 16);
             this.weightsLbl.TabIndex = 17;
             // 
+            // EpsilonTB
+            // 
+            this.EpsilonTB.Location = new System.Drawing.Point(192, 132);
+            this.EpsilonTB.Name = "EpsilonTB";
+            this.EpsilonTB.Size = new System.Drawing.Size(38, 20);
+            this.EpsilonTB.TabIndex = 18;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(236, 135);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(41, 13);
+            this.label6.TabIndex = 19;
+            this.label6.Text = "Epsilon";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(236, 161);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(21, 13);
+            this.label7.TabIndex = 21;
+            this.label7.Text = "Nu";
+            // 
+            // NuTB
+            // 
+            this.NuTB.Location = new System.Drawing.Point(192, 158);
+            this.NuTB.Name = "NuTB";
+            this.NuTB.Size = new System.Drawing.Size(38, 20);
+            this.NuTB.TabIndex = 20;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(236, 188);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(41, 13);
+            this.label8.TabIndex = 23;
+            this.label8.Text = "Omega";
+            // 
+            // OmegaTB
+            // 
+            this.OmegaTB.Location = new System.Drawing.Point(192, 185);
+            this.OmegaTB.Name = "OmegaTB";
+            this.OmegaTB.Size = new System.Drawing.Size(38, 20);
+            this.OmegaTB.TabIndex = 22;
+            // 
             // Function
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(467, 282);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.OmegaTB);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.NuTB);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.EpsilonTB);
             this.Controls.Add(this.weightsLbl);
             this.Controls.Add(this.fieldsizeWidthtb);
             this.Controls.Add(this.UploadInit_btn);
@@ -322,5 +381,11 @@
         private System.Windows.Forms.TextBox fieldsizeWidthtb;
         private System.Windows.Forms.CheckBox useCurrentAsSeparate;
         private System.Windows.Forms.Label weightsLbl;
+        private System.Windows.Forms.TextBox EpsilonTB;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox NuTB;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox OmegaTB;
     }
 }
