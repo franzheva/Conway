@@ -26,6 +26,9 @@ namespace Conway
         public int HeightImg = 0;
         public int WidthImg = 0;
         public int scale = 0;
+        public decimal epsilon = 0.0m;
+        public decimal nu = 0.0m;
+        public decimal omega = 0.0m;
         bool initFromImage = false;
         public Function(Form1 form)
         {
@@ -36,7 +39,7 @@ namespace Conway
         private void Function_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'cellularAutomataDataSet.Common_AnalyticalCA' table. You can move, or remove it, as needed.
-            this.common_AnalyticalCATableAdapter.Fill(this.cellularAutomataDataSet.Common_AnalyticalCA);
+           // this.common_AnalyticalCATableAdapter.Fill(this.cellularAutomataDataSet.Common_AnalyticalCA);
             int x, y;
             for (int i = 0; i < 9; i++)
             {
@@ -70,7 +73,10 @@ namespace Conway
                     HeightImg = Convert.ToInt32(fieldsizeHeighttb.Text);
                     WidthImg = Convert.ToInt32(fieldsizeWidthtb.Text);
                     scale = Convert.ToInt32(scaletb.Text);
-                    allCellf = new AllCellsFunc(funcParsing.FunctionForAllParsed(CalcFunctionCB.SelectedValue.ToString()));//
+                    epsilon = Convert.ToDecimal(EpsilonTB.Text);
+                    nu = Convert.ToDecimal(NuTB.Text);
+                    omega = Convert.ToDecimal(OmegaTB.Text);
+                    allCellf = new AllCellsFunc(funcParsing.FunctionForAllParsed("return 4 * (1 - 0.05m * y) * x * (1 - x);"));//CalcFunctionCB.SelectedValue.ToString()));//
 
 //                    Logistic    return 4 * x * (1 - x);
 //                    Tent    return 1 - Math.Abs(2 * x - 1);
@@ -195,10 +201,12 @@ namespace Conway
         {
             if (path != "")
             {
+               
                 var image = new Bitmap(path);
                 HeightImg = image.Height;
                 WidthImg = image.Width;
-                var initData = new decimal[HeightImg, WidthImg];
+                var initData = new CellStateVectorVM[HeightImg, WidthImg];
+                
                 fieldsizeHeighttb.Text = HeightImg.ToString();
                 fieldsizeHeighttb.ReadOnly = true;
                 fieldsizeWidthtb.Text = WidthImg.ToString();
@@ -206,8 +214,14 @@ namespace Conway
                 scale = 1;
                 scaletb.Text = scale.ToString();
                 for (int i = 0; i < HeightImg; i++)
-                    for (int j = 0; j < WidthImg; j++)
-                        initData[i, j] = 1 - ((decimal)image.GetPixel(j, i).R) / 255;
+                    for (int j = 0; j < WidthImg; j++)                    
+                        initData[i, j] = new CellStateVectorVM()
+                        {
+                            Susceptible = 1 - ((decimal)image.GetPixel(j, i).R) / 255,
+                            Infected = 1 - ((decimal)image.GetPixel(j, i).G) / 255,
+                            Recovered = 1 - ((decimal)image.GetPixel(j, i).B) / 255
+                        };
+                    
 
                 mainForm.SetInitialFromImage(initData);
                 initFromImage = true;
@@ -228,11 +242,14 @@ namespace Conway
             if (useCurrentAsSeparate.Checked)
             {
                 tb[8].Text = "0";
-                tb[8].ReadOnly = true;
+                for (int i = 0; i < 8; i++)
+                    tb[i].Text = "1";
+                //tb[8].ReadOnly = true;
                 currentSeparate = true;
             }
             else {
-                tb[8].Text = "";
+                for (int i = 0; i < 9; i++)
+                    tb[i].Text = "";
                 tb[8].ReadOnly = false;
                 currentSeparate = false;
 

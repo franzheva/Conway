@@ -71,6 +71,7 @@
       <DependentUpon>AddNewFunction.cs</DependentUpon>
     </Compile>
     <Compile Include="CaclulationFunctionVM.cs" />
+    <Compile Include="CellStateVectorVM.cs" />
     <Compile Include="CellularAutomataDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
